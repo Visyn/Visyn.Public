@@ -66,14 +66,12 @@ namespace Visyn.Public.CommandLine
                 try
                 {
                     var parser = Activator.CreateInstance(typeof(T)) as ICommandLineArgs;
-                    if (parser != null)
-                    {
-                        T result;
-                        parser.TryParse<T>(args, out result);
-                        return result;
-                    }
+
+                    T result = null;
+                    parser?.TryParse<T>(args, out result);
+                    return result;
                 }
-                catch(Exception exc)
+                catch(Exception)
                 {
                 }
             }
