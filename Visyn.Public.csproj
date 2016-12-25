@@ -59,6 +59,7 @@
     <Compile Include="Exceptions\ExceptionSource.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Exceptions\IExceptionSource.cs" />
+    <Compile Include="Format\FormatStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Types\DisposeBase.cs" />
