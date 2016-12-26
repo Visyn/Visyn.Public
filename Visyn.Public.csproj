@@ -60,6 +60,9 @@
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Exceptions\IExceptionSource.cs" />
     <Compile Include="Format\FormatStrings.cs" />
+    <Compile Include="Geometry\IPoint.cs" />
+    <Compile Include="Geometry\IPoint3D.cs" />
+    <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Types\DisposeBase.cs" />
