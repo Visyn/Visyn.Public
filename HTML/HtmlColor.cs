@@ -5,6 +5,7 @@
         public static string Code(HtmlColor color) => $"#{(int)color:X6}";
         public static string Code(byte red, byte green, byte blue) => $"{red:X2}{green:X2}{blue:X2}}}";
     }
+
     public enum HtmlColor
     {
         //	ColorName =	HEX	
@@ -156,8 +157,5 @@
         WhiteSmoke = 0xF5F5F5,
         Yellow = 0xFFFF00,
         YellowGreen = 0x9ACD32,
-
-
-
     }
 }
