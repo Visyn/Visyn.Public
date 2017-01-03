@@ -6,7 +6,7 @@ namespace Visyn.Public.Log.SimpleLog
 {
     public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel> where TEntry : class, ILogEntry<TEventLevel>
     {
-        protected IDictionary<DateTime, TEntry> Entries { get; }
+        public IDictionary<DateTime, TEntry> Entries { get; }
 
         protected SimpleLogBase(IDictionary<DateTime, TEntry> dictionary = null)
         {
