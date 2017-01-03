@@ -53,6 +53,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Automation\ExecutionResult.cs" />
+    <Compile Include="Automation\IExecute.cs" />
     <Compile Include="Collections\KeyValueList.cs" />
     <Compile Include="CommandLine\CommandLineArgs.cs" />
     <Compile Include="CommandLine\ICommandLineArgs.cs" />
@@ -66,7 +68,15 @@
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
+    <Compile Include="Log\IExceptionLog.cs" />
+    <Compile Include="Log\ILogEntry.cs" />
+    <Compile Include="Log\SeverityLevel.cs" />
+    <Compile Include="Log\SimpleLog\SimpleLog.cs" />
+    <Compile Include="Log\SimpleLog\SimpleLogBase.cs" />
+    <Compile Include="Log\SimpleLog\SimpleLogEntry.cs" />
     <Compile Include="Mathematics\IColor.cs" />
+    <Compile Include="Log\IEventLevel.cs" />
+    <Compile Include="Log\ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Meta\MetaProperties.cs" />
@@ -77,11 +87,17 @@
     <Compile Include="VisynApp\IVisynAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.5.0\lib\portable-net45+win8+wp8+wpa81+Xamarin.Mac+MonoAndroid10+MonoTouch10+Xamarin.iOS10\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WindowsBase">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\WindowsBase.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
