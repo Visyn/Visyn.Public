@@ -4,10 +4,10 @@ namespace Visyn.Public.HTML
 {
     public static class HtmlColors
     {
-        public static string Code(HtmlColor color) => $"#{(int)color:X6}";
+        public static string HtmlString(this HtmlColor color) => $"#{(int)color:X6}";
         public static string FromRGB(byte red, byte green, byte blue) => $"#{red:X2}{green:X2}{blue:X2}";
 
-        public static string HtmlColor(this IColor color)  => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+        public static string HtmlString(this IColor color)  => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
     }
 
     public enum HtmlColor
