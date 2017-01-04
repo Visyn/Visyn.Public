@@ -21,6 +21,8 @@ namespace Visyn.Public.Geometry
             X = x;
             Y = y;
         }
+        public static PointXY operator +(PointXY t1, PointXY t2) => new PointXY(t1.X + t2.X, t1.Y + t2.Y);
+        public static PointXY operator -(PointXY t1, PointXY t2) => new PointXY(t1.X - t2.X, t1.Y - t2.Y);
 
         public static explicit operator Point(PointXY point) => new Point(point.X, point.Y);
 
