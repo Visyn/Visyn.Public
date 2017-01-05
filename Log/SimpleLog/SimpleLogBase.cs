@@ -25,7 +25,10 @@ namespace Visyn.Public.Log.SimpleLog
             var entry = item as TEntry;
             if (entry != null)
             {
-                Entries.Add(entry.TimestampUtc, entry);
+                if (!Entries.ContainsKey(entry.TimestampUtc))
+                {
+                    Entries.Add(entry.TimestampUtc, entry);
+                }
             }
         }
 
