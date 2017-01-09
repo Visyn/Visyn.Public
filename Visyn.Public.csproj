@@ -58,6 +58,9 @@
     <Compile Include="Collections\KeyValueList.cs" />
     <Compile Include="CommandLine\CommandLineArgs.cs" />
     <Compile Include="CommandLine\ICommandLineArgs.cs" />
+    <Compile Include="Criteria\ComparableCriteria.cs" />
+    <Compile Include="Criteria\Criteria.cs" />
+    <Compile Include="Criteria\StringCriteria.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />
     <Compile Include="Exceptions\ExceptionSource.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
