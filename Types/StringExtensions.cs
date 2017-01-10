@@ -148,5 +148,18 @@ namespace Visyn.Public.Types
                 return new[] { source };
             }
         }
+
+        public static string ReplaceChars(this string str, char[] chars, char replaceChar)
+        {
+            if (!str.ContainsChar(chars)) return str;
+
+            var newStr = new char[str.Length];
+            for(var i=0;i<str.Length;i++)
+            {
+                if (chars.Contains(str[i])) newStr[i] = replaceChar;
+                else newStr[i] = str[i];
+            }
+            return new string(newStr);
+        }
     }
 }
