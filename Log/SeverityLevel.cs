@@ -27,11 +27,11 @@ namespace Visyn.Public.Log
                 case SeverityLevel.Warning:
                     return ColorStruct.DarkOrange;
                 case SeverityLevel.Informational:
-                    return ColorStruct.White;
+                    return ColorStruct.Black;
                 case SeverityLevel.Verbose:
                     return ColorStruct.Cyan;
                 default:
-                    return ColorStruct.White;
+                    return ColorStruct.Black;
             }
         }
     }
