@@ -3,6 +3,7 @@ using System.Windows;
 
 namespace Visyn.Public.Geometry
 {
+
     public class PointXY : IPoint , IComparable<IPoint>
     {
         public PointXY(Point point)
@@ -21,11 +22,14 @@ namespace Visyn.Public.Geometry
             X = x;
             Y = y;
         }
-        public static PointXY operator +(PointXY t1, PointXY t2) => new PointXY(t1.X + t2.X, t1.Y + t2.Y);
-        public static PointXY operator -(PointXY t1, PointXY t2) => new PointXY(t1.X - t2.X, t1.Y - t2.Y);
+
+        public static PointXY operator +(PointXY p1, PointXY p2) => new PointXY(p1.X + p2.X, p1.Y + p2.Y);
+        public static PointXY operator -(PointXY p1, PointXY p2) => new PointXY(p1.X - p2.X, p1.Y - p2.Y);
 
         public static explicit operator Point(PointXY point) => new Point(point.X, point.Y);
 
+        public static PointXY operator +(PointXY p1, Vector v1) => new PointXY(p1.X + v1.X, p1.Y + v1.Y);
+        public static PointXY operator -(PointXY p1, Vector v1) => new PointXY(p1.X - v1.X, p1.Y - v1.Y);
         #region Implementation of IPoint
 
         public double X { get; }
