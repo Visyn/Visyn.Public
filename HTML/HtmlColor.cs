@@ -1,4 +1,5 @@
-﻿using Visyn.Public.Mathematics;
+﻿using System;
+using Visyn.Public.Mathematics;
 
 namespace Visyn.Public.HTML
 {
@@ -8,6 +9,12 @@ namespace Visyn.Public.HTML
         public static string FromRGB(byte red, byte green, byte blue) => $"#{red:X2}{green:X2}{blue:X2}";
 
         public static string HtmlString(this IColor color)  => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+
+        public static ColorStruct ColorStruct(this HtmlColor html)
+        {
+            var bytes = BitConverter.GetBytes((int) html);
+            return new ColorStruct(bytes[2],bytes[1],bytes[0]);
+        }
     }
 
     public enum HtmlColor
