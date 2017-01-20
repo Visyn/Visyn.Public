@@ -19,7 +19,9 @@ namespace Visyn.Public.HTML
 
     public enum HtmlColor
     {
+        Unknown = -1,
         //	ColorName =	HEX	
+        Black = 0x000000,
         AliceBlue = 0xF0F8FF,
         AntiqueWhite = 0xFAEBD7,
         Aqua = 0x00FFFF,
@@ -27,7 +29,6 @@ namespace Visyn.Public.HTML
         Azure = 0xF0FFFF,
         Beige = 0xF5F5DC,
         Bisque = 0xFFE4C4,
-        Black = 0x000000,
         BlanchedAlmond = 0xFFEBCD,
         Blue = 0x0000FF,
         BlueViolet = 0x8A2BE2,

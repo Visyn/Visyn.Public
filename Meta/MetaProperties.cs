@@ -16,7 +16,6 @@ namespace Visyn.Public.Meta
             Properties = new Dictionary<string, object> { {nameof(Name),newName} };
         }
 
-
         public MetaProperties(IEnumerable<KeyValuePair<string, object>> properties)
         {
             Properties = new Dictionary<string, object>();
