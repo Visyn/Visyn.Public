@@ -21,7 +21,7 @@ namespace Visyn.Public.Exceptions
         public ExceptionHandler ExceptionHandler => _exceptionHandler;
 
         [Obsolete("Need to make protected...")]
-        public ExceptionSource() { }
+        protected ExceptionSource() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionSource"/> class.
