@@ -38,44 +38,33 @@ namespace Visyn.Public.Types
             }
             return false;
         }
-        public static bool ContainsChar(this string text, char ch)
-        {
-            return text.Cast<char>().Any(c => c == ch);
-        }
+        public static bool ContainsChar(this string text, char ch) => text.Cast<char>().Any(c => c == ch);
 
         public static bool ContainsChar(this string text, IEnumerable<char> charsToFind)
         {
-            if (charsToFind.Any(ch => text.Cast<char>().Any(c => c == ch)))
-            {
-                return true;
-            }
-            return false;
+            return charsToFind.Any(ch => text.Cast<char>().Any(c => c == ch));
         }
 
         public static IList<string> SplitAndKeepDelimiters(this string s, params char[] delimiters)
         {
             var parts = new List<string>();
-            if (!String.IsNullOrEmpty(s))
+            if (string.IsNullOrEmpty(s)) return parts;
+            var iFirst = 0;
+            do
             {
-                int iFirst = 0;
-                do
+                int iLast = s.IndexOfAny(delimiters, iFirst);
+                if (iLast >= 0)
                 {
-                    int iLast = s.IndexOfAny(delimiters, iFirst);
-                    if (iLast >= 0)
-                    {
-                        if (iLast > iFirst)
-                            parts.Add(s.Substring(iFirst, iLast - iFirst)); //part before the delimiter
-                        parts.Add(new string(s[iLast], 1));//the delimiter
-                        iFirst = iLast + 1;
-                        continue;
-                    }
-
-                    //No delimiters were found, but at least one character remains. Add the rest and stop.
-                    parts.Add(s.Substring(iFirst, s.Length - iFirst));
-                    break;
-
-                } while (iFirst < s.Length);
-            }
+                    if (iLast > iFirst)
+                        parts.Add(s.Substring(iFirst, iLast - iFirst)); //part before the delimiter
+                    parts.Add(new string(s[iLast], 1));//the delimiter
+                    iFirst = iLast + 1;
+                    continue;
+                }
+                //No delimiters were found, but at least one character remains. Add the rest and stop.
+                parts.Add(s.Substring(iFirst, s.Length - iFirst));
+                break;
+            } while (iFirst < s.Length);
 
             return parts;
         }
@@ -161,5 +150,31 @@ namespace Visyn.Public.Types
             }
             return new string(newStr);
         }
+
+        public static List<string> SubStrings(this string str, IEnumerable<int> indexes )
+        {
+            var split = new  List<string>();
+
+            var remaining = str;
+            int prevIndex = 0;
+            foreach(var index in indexes)
+            {
+                if(index > prevIndex) split.Add(remaining.Substring(prevIndex, index));
+                remaining = remaining.Substring(index);
+                prevIndex = index;
+            }
+            split.Add(remaining);
+            return split;
+        }
+
+        public static string [] SubStrings(this string str, int index, char[] trimChars=null)
+        {
+            var before = str.Substring(0,index);
+            var after = str.Substring(index, str.Length-index);
+            if(trimChars == null) return new string[] {before, after};
+            return new string[] { before.Trim(trimChars), after.Trim(trimChars) };
+
+        }
+         
     }
 }
