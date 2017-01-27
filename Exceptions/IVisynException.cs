@@ -1,4 +1,4 @@
-namespace Visyn.Misc.LED
+namespace Visyn.Public.Exceptions
 {
     /// <summary>
     /// Interface IVisynException

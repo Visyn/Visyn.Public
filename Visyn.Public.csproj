@@ -67,6 +67,7 @@
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Exceptions\IExceptionSource.cs" />
     <Compile Include="Exceptions\IVisynException.cs" />
+    <Compile Include="Exceptions\MissingItemException.cs" />
     <Compile Include="Format\FormatStrings.cs" />
     <Compile Include="Geometry\IPoint.cs" />
     <Compile Include="Geometry\IPoint3D.cs" />

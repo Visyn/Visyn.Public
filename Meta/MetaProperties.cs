@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Visyn.Public.Exceptions;
 
 namespace Visyn.Public.Meta
 {
@@ -31,12 +32,17 @@ namespace Visyn.Public.Meta
             Properties[nameof(Name)] = newName;
         }
 
+        public void Add(KeyValuePair<string, object> item)
+        {
+            ((ICollection <KeyValuePair<string,object>>)Properties).Add(item);
+        }
+
         public void Add(string key, object value)
         {
             Properties.Add(key, value);
         }
 
-        public T Get<T>(string key, T defaultValue=default(T))
+        public T Get<T>(string key, bool throwIfMissing, T defaultValue = default(T))
         {
             object value;
             if(TryGetValue(key, out value))
@@ -47,12 +53,21 @@ namespace Visyn.Public.Meta
                 }
                 throw new ArrayTypeMismatchException($"{nameof(MetaProperties)}[{key}] is type {value.GetType().Name}, not of expected type {typeof(T)}.");
             }
+            if (throwIfMissing) throw MissingItemException.ItemMissing(GetType().Name, key, typeof(T), null);
             return defaultValue;
         }
 
-        public MetaProperties ReplaceName(string newName) => new MetaProperties(newName,this);
-
-        public MetaProperties AppendName(string suffix) => new MetaProperties(Name + suffix, this);
+        public void ReplaceName(string newName)
+        {
+            Properties[nameof(Name)] = newName;
+        }
+        public void AppendName(string suffix)
+        {
+            var name = Properties[nameof(Name)];
+            Properties[nameof(Name)] = $"{name}{suffix}";
+        }
+        public MetaProperties CopyProperties(string suffix) 
+            => new MetaProperties(Name + suffix, this);
 
         #region Implementation of IEnumerable
 
