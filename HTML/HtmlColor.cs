@@ -10,6 +10,7 @@ namespace Visyn.Public.HTML
 
         public static string HtmlString(this IColor color)  => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
 
+      
         public static ColorStruct ColorStruct(this HtmlColor html)
         {
             var bytes = BitConverter.GetBytes((int) html);

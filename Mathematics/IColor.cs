@@ -1,10 +1,13 @@
-﻿namespace Visyn.Public.Mathematics
+﻿using Visyn.Public.HTML;
+
+namespace Visyn.Public.Mathematics
 {
-    public interface IColor
+    public interface IColor : IHtmlColor
     {
         byte R { get; }
         byte G { get; }
         byte B { get; }
+        byte Alpha { get; }
     }
 
     public struct ColorStruct : IColor
@@ -14,13 +17,15 @@
         public byte R { get; }
         public byte G { get; }
         public byte B { get; }
+        public byte Alpha { get; }
 
         #endregion
-        public ColorStruct(byte red, byte green, byte blue)
+        public ColorStruct(byte red, byte green, byte blue, byte alpha=0)
         {
             R = red;
             G = green;
             B = blue;
+            Alpha = alpha;
         }
 
         public static ColorStruct AliceBlue => new ColorStruct(240, 248, 255);
@@ -172,5 +177,18 @@
         public static ColorStruct Yellow => new ColorStruct(255, 255, 0);
         public static ColorStruct YellowGreen => new ColorStruct(154, 205, 50);
 
+        #region Implementation of IHtmlColor
+
+        public string GetHtmlColor() => this.HtmlString();
+
+        #endregion
+
+        #region Overrides of ValueType
+
+        /// <summary>Returns the fully qualified type name of this instance.</summary>
+        /// <returns>A <see cref="T:System.String" /> containing a fully qualified type name.</returns>
+        public override string ToString() => Alpha > 0 ? $"{R} {G} {B} - {Alpha}" : $"{R} {G} {B}";
+
+        #endregion
     }
 }
