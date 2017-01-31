@@ -28,6 +28,11 @@ namespace Visyn.Public.Mathematics
             Alpha = alpha;
         }
 
+        public static ColorStruct operator *(ColorStruct color, double x)
+        {
+            return new ColorStruct((byte)(color.R*x), (byte)(color.G * x), (byte)(color.B * x));
+        }
+        
         public static ColorStruct AliceBlue => new ColorStruct(240, 248, 255);
         public static ColorStruct AntiqueWhite => new ColorStruct(250, 235, 215);
         public static ColorStruct Aqua => new ColorStruct(0, 255, 255);
