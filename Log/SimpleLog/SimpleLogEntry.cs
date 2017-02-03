@@ -2,7 +2,7 @@ using System;
 
 namespace Visyn.Public.Log.SimpleLog
 {
-    public class SimpleLogEntry : ILogEntry<SeverityLevel>
+    public class SimpleLogEntry<TEventLevel> : ILogEntry<TEventLevel>
     {
         public static string ApplicationName { get; set; }
         public static string ComputerName { get; set; }
@@ -13,7 +13,7 @@ namespace Visyn.Public.Log.SimpleLog
         public string Application { get; }
         public string Computer { get; }
         public string User { get; }
-        public SeverityLevel EventLevel { get; }
+        public TEventLevel EventLevel { get; }
         public string Message { get; }
         public string Source { get; }
         public DateTime TimestampLocal { get; }
@@ -21,7 +21,7 @@ namespace Visyn.Public.Log.SimpleLog
 
         #endregion
 
-        public SimpleLogEntry(string source, string message, SeverityLevel level)
+        public SimpleLogEntry(string source, string message, TEventLevel level)
         {
             TimestampUtc = DateTime.UtcNow;
             TimestampLocal = DateTime.Now;

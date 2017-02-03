@@ -4,18 +4,38 @@ using System.Collections.Generic;
 
 namespace Visyn.Public.Log.SimpleLog
 {
-    public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel> where TEntry : class, ILogEntry<TEventLevel>
+    public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel>, ILogItems<TEntry> where TEntry : class, ILogEntry<TEventLevel>
     {
-        public IDictionary<DateTime, TEntry> Entries { get; }
-
+        protected IDictionary<DateTime, TEntry> _entries { get; }
         protected SimpleLogBase(IDictionary<DateTime, TEntry> dictionary = null)
         {
-            Entries = dictionary ?? new Dictionary<DateTime, TEntry>();
+            _entries = dictionary ?? new Dictionary<DateTime, TEntry>();
         }
 
         #region Implementation of ILog<TEventLevel,TEntry>
 
         public TEventLevel LogLevel { get; set; }
+        public IDictionary<DateTime, TEntry> Entries()
+        {
+            var _dictionary = new Dictionary<DateTime, TEntry>();
+            foreach(var entry in _entries)
+            {
+                if (entry.Value != null)  _dictionary.Add(entry.Key, entry.Value);
+            }
+            return _dictionary;
+        }
+
+        public void LogItem(TEntry item)
+        {
+            if (item != null)
+            {
+                if (!_entries.ContainsKey(item.TimestampUtc))
+                {
+                    _entries.Add(item.TimestampUtc, item);
+                }
+            }
+        }
+
         public abstract void Log(object source, string message, TEventLevel level);
 
         public abstract void Log(object source, ICollection logItems, TEventLevel level, string prefix = null);
@@ -25,9 +45,9 @@ namespace Visyn.Public.Log.SimpleLog
             var entry = item as TEntry;
             if (entry != null)
             {
-                if (!Entries.ContainsKey(entry.TimestampUtc))
+                if (!_entries.ContainsKey(entry.TimestampUtc))
                 {
-                    Entries.Add(entry.TimestampUtc, entry);
+                    _entries.Add(entry.TimestampUtc, entry);
                 }
             }
         }

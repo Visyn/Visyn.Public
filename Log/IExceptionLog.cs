@@ -1,3 +1,4 @@
+using System;
 using Visyn.Public.Exceptions;
 
 namespace Visyn.Public.Log
