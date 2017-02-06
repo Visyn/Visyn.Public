@@ -11,9 +11,9 @@ namespace Visyn.Public.Log.SimpleLog
             ErrorLevel = errorLevel;
         }
 
-    #region Overrides of SimpleLogBase<SeverityLevel,SimpleLogEntry>
+        #region Overrides of SimpleLogBase<SeverityLevel,SimpleLogEntry>
 
-    public override void Log(object source, string message, TEventLevel level)
+        public override void Log(object source, string message, TEventLevel level)
         {
             LogItem(new SimpleLogEntry<TEventLevel>(source.ToString(), message, level));
         }
