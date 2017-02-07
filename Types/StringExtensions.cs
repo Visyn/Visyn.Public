@@ -175,6 +175,14 @@ namespace Visyn.Public.Types
             return new string[] { before.Trim(trimChars), after.Trim(trimChars) };
 
         }
-         
+
+        public static IEnumerable<string> Trim(this string[] strings, char[] trimChars) => strings.Select(str => str.Trim(trimChars));
+
+        public static IEnumerable<string> Trim(this string[] strings, char[] trimChars, StringSplitOptions options)
+        {
+            return options == StringSplitOptions.None
+                ? strings.Trim(trimChars)
+                : strings.Select(str => str.Trim(trimChars)).Where(trim => trim.Length > 0);
+        }
     }
 }
