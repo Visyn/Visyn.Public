@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Automation\ExecutionResult.cs" />
     <Compile Include="Automation\IExecute.cs" />
+    <Compile Include="Automation\IProgressNotification.cs" />
+    <Compile Include="Automation\TaskInfo.cs" />
     <Compile Include="Collections\IEnumerableColumns.cs" />
     <Compile Include="Collections\KeyValueList.cs" />
     <Compile Include="CommandLine\CommandLineArgs.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Exceptions\IExceptionSource.cs" />
     <Compile Include="Exceptions\IVisynException.cs" />
     <Compile Include="Exceptions\MissingItemException.cs" />
+    <Compile Include="Exceptions\NotAssignableException.cs" />
     <Compile Include="Format\FormatStrings.cs" />
     <Compile Include="Geometry\IPoint.cs" />
     <Compile Include="Geometry\IPoint3D.cs" />
