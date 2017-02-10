@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Visyn.Public.Automation
 {
     public class ExecutionResult<T> : ExecutionResult
@@ -16,6 +18,8 @@ namespace Visyn.Public.Automation
     {
         public bool Success { get; set; }
         public bool KeepExecuting { get; set; }
+
+        public object Payload { get; set; }
 
         public ExecutionResult(bool success, bool keepExecuting)
         {
