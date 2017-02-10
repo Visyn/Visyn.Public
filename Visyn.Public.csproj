@@ -93,6 +93,8 @@
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
     <Compile Include="Types\StringExtensions.cs" />
+    <Compile Include="Types\Time\DateTimeExtensions.cs" />
+    <Compile Include="Types\Time\TimeSpanExtensions.cs" />
     <Compile Include="VisynApp\IVisynApp.cs" />
     <Compile Include="VisynApp\IVisynAppSettings.cs" />
   </ItemGroup>
