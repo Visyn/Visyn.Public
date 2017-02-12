@@ -6,10 +6,18 @@ namespace Visyn.Public.Settings
     public class CefAppSettings : IVisynAppSettings
     {
         public bool AreValid { get; protected set; } = true;
+        public void InitializeDefaultSettings(object context)
+        {
+            AddressBarVisible = false;
+        }
 
-        public bool AddressBarVisible { get; }
+        public bool AddressBarVisible { get; set; }
 
-        public string Url { get; }
+        public string Url { get; set; }
+
+        public CefAppSettings()
+        {
+        }
 
         public CefAppSettings(string url, bool addressBarVisible=false)
         {

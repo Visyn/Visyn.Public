@@ -62,5 +62,9 @@ namespace Visyn.Public.Exceptions
             }
             return default(TOut);
         }
+
+        public static bool SupressException(this IExceptionHandler handler, object sender, Exception exc) => true;
+
+        public static bool SupressException(object sender, Exception exc) => true;
     }
 }

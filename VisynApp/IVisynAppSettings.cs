@@ -13,5 +13,7 @@ namespace Visyn.Public.VisynApp
     {
         //
         bool AreValid { get; }
+
+        void InitializeDefaultSettings(object context);
     }
 }

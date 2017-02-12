@@ -45,6 +45,19 @@ namespace Visyn.Public.Types
             return charsToFind.Any(ch => text.Cast<char>().Any(c => c == ch));
         }
 
+        public static string NotNull(this string text)
+        {
+            return string.IsNullOrEmpty(text) ? "" : text;
+        }
+
+        public static string NotNull(this string text, string alternate)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return !string.IsNullOrEmpty(alternate) ? alternate : "";
+            }
+            return text;
+        }
         public static IList<string> SplitAndKeepDelimiters(this string s, params char[] delimiters)
         {
             var parts = new List<string>();
