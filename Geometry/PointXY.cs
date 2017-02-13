@@ -30,6 +30,9 @@ namespace Visyn.Public.Geometry
 
         public static PointXY operator +(PointXY p1, Vector v1) => new PointXY(p1.X + v1.X, p1.Y + v1.Y);
         public static PointXY operator -(PointXY p1, Vector v1) => new PointXY(p1.X - v1.X, p1.Y - v1.Y);
+
+        public static PointXY operator *(PointXY p, double d) => new PointXY(p.X*d, p.Y*d);
+
         #region Implementation of IPoint
 
         public double X { get; }
