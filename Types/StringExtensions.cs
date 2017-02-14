@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace Visyn.Public.Types
-{
+{   
     public static class StringExtensions
     {
-        [Obsolete("Use item?ToString()",true)]
+        [Obsolete("Use item?ToString() ?? string.Empty",true)]
         public static string ToStringNotNull(object item) { return item?.ToString() ?? ""; }
         [Obsolete("Use LettersOnly instead", true)]
         public static string CharactersOnly(this string source, char[] skip = null) => LettersOnly(source, skip);
@@ -38,26 +38,19 @@ namespace Visyn.Public.Types
             }
             return false;
         }
+
         public static bool ContainsChar(this string text, char ch) => text.Cast<char>().Any(c => c == ch);
 
-        public static bool ContainsChar(this string text, IEnumerable<char> charsToFind)
-        {
-            return charsToFind.Any(ch => text.Cast<char>().Any(c => c == ch));
-        }
+        public static bool ContainsChar(this string text, IEnumerable<char> charsToFind) => charsToFind.Any(ch => text.Cast<char>().Any(c => c == ch));
 
-        public static string NotNull(this string text)
-        {
-            return string.IsNullOrEmpty(text) ? "" : text;
-        }
+        public static string NotNull(this string text) => string.IsNullOrEmpty(text) ? "" : text;
 
         public static string NotNull(this string text, string alternate)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return !string.IsNullOrEmpty(alternate) ? alternate : "";
-            }
-            return text;
+            if (!string.IsNullOrEmpty(text)) return text;
+            return !string.IsNullOrEmpty(alternate) ? alternate : "";
         }
+
         public static IList<string> SplitAndKeepDelimiters(this string s, params char[] delimiters)
         {
             var parts = new List<string>();
@@ -90,25 +83,48 @@ namespace Visyn.Public.Types
             return split.Length == 2;
         }
 
-        public static string LettersOnly(this string source, char[] skip=null)
+        public static string LettersOnly(this string source)
         {
             if (string.IsNullOrWhiteSpace(source)) return "";
-            var result = new StringBuilder();
-            foreach(var ch in source)
-            {
-                if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
-                {
-                    result.Append(ch);
-                }
-                else if(skip != null && skip.Contains(ch)) 
-                {
-                    result.Append(ch);
-                }
-            }
-            return result.ToString();
+            return source.FilterCharacters(char.IsLetter);
         }
 
+        public static string LettersOnly(this string source, char[] acceptableChars)
+        {
+            if (string.IsNullOrWhiteSpace(source)) return "";
+            if (acceptableChars == null || acceptableChars.Length == 0) return LettersOnly(source);
 
+            return source.FilterCharacters((c) => char.IsLetter(c) || acceptableChars.Contains(c));
+        }
+
+        public static string LettersAndNumbersOnly(this string source)
+        {
+            if (string.IsNullOrWhiteSpace(source)) return "";
+            return source.FilterCharacters(char.IsLetterOrDigit);
+        }
+
+        public static string LettersAndNumbersOnly(this string source, char[] acceptableChars)
+        {
+            if (string.IsNullOrWhiteSpace(source)) return "";
+            if (acceptableChars == null || acceptableChars.Length == 0) return LettersAndNumbersOnly(source);
+
+            return source. FilterCharacters((c) => char.IsLetterOrDigit(c) || acceptableChars.Contains(c));
+        }
+
+        public static string FilterCharacters(this string text, Func<char,bool> filter )
+        {
+            if (string.IsNullOrWhiteSpace(text)) return "";
+            if (filter == null) return text;
+            var result = new char[text.Length+1];
+            var index = 0;
+            foreach(var ch in text)
+            {
+                if (ch == '\0') break;
+                if (filter(ch)) result[index++] = ch;
+            }
+           // result[index] = '\0';
+            return new string(result,0,index);
+        }
 
         /// <summary>
         /// Splits the string at the specified split character.
