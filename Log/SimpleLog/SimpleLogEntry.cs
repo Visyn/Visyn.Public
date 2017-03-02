@@ -34,5 +34,16 @@ namespace Visyn.Public.Log.SimpleLog
             Computer = ComputerName;
             User = UserName;
         }
+
+        #region Overrides of Object
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return $"{TimestampLocal}, {EventLevel}, {Message}";
+        }
+
+        #endregion
     }
 }

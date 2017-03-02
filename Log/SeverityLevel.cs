@@ -18,20 +18,13 @@ namespace Visyn.Public.Log
         {
             switch (level)
             {
-                case SeverityLevel.LogAlways:
-                    return ColorStruct.Red;
-                case SeverityLevel.Critical:
-                    return ColorStruct.Crimson;
-                case SeverityLevel.Error:
-                    return ColorStruct.Red;
-                case SeverityLevel.Warning:
-                    return ColorStruct.DarkOrange;
-                case SeverityLevel.Informational:
-                    return ColorStruct.Black;
-                case SeverityLevel.Verbose:
-                    return ColorStruct.Cyan;
-                default:
-                    return ColorStruct.Black;
+                case SeverityLevel.LogAlways: return ColorStruct.Red;
+                case SeverityLevel.Critical: return ColorStruct.Crimson;
+                case SeverityLevel.Error: return ColorStruct.Red;
+                case SeverityLevel.Warning: return ColorStruct.DarkOrange;
+                case SeverityLevel.Informational: return ColorStruct.Black;
+                case SeverityLevel.Verbose: return ColorStruct.Cyan;
+                default:  return ColorStruct.Black;
             }
         }
     }

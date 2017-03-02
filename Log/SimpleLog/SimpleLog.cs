@@ -3,9 +3,10 @@ using System.Collections;
 
 namespace Visyn.Public.Log.SimpleLog
 {
-    public class SimpleLog<TEventLevel> : SimpleLogBase<TEventLevel,SimpleLogEntry<TEventLevel>> where TEventLevel : struct
+    public class SimpleLog<TEventLevel> : SimpleLogBase<TEventLevel,SimpleLogEntry<TEventLevel>> where TEventLevel : struct, IComparable
     {
         private TEventLevel ErrorLevel { get; }
+
         public SimpleLog(TEventLevel errorLevel)
         {
             ErrorLevel = errorLevel;

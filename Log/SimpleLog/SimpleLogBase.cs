@@ -4,12 +4,15 @@ using System.Collections.Generic;
 
 namespace Visyn.Public.Log.SimpleLog
 {
-    public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel>, ILogItems<TEntry> where TEntry : class, ILogEntry<TEventLevel>
+    public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel>, ILogItems<TEntry> where TEntry : class, ILogEntry<TEventLevel> where TEventLevel : IComparable
     {
         protected IDictionary<DateTime, TEntry> _entries { get; }
+        public KeyValuePair<TEventLevel,Action<object>> ItemLoggedAction { get; set; }
+
         protected SimpleLogBase(IDictionary<DateTime, TEntry> dictionary = null)
         {
             _entries = dictionary ?? new Dictionary<DateTime, TEntry>();
+           ;
         }
 
         #region Implementation of ILog<TEventLevel,TEntry>
@@ -33,6 +36,24 @@ namespace Visyn.Public.Log.SimpleLog
                 {
                     _entries.Add(item.TimestampUtc, item);
                 }
+                ExecuteOutputAction(item);
+            }
+        }
+
+        protected void ExecuteOutputAction(TEntry item)
+        {
+            if (ItemLoggedAction.Value != null && (item.EventLevel).CompareTo(ItemLoggedAction.Key) <= 0)
+            {
+                var action = ItemLoggedAction.Value;
+                action.BeginInvoke(item, null, null);
+            }
+        }
+        protected void ExecuteOutputAction(object item)
+        {
+            if (ItemLoggedAction.Value != null )
+            {
+                var action = ItemLoggedAction.Value;
+                action.BeginInvoke(item, null, null);
             }
         }
 
@@ -49,6 +70,7 @@ namespace Visyn.Public.Log.SimpleLog
                 {
                     _entries.Add(entry.TimestampUtc, entry);
                 }
+                ExecuteOutputAction(item);
             }
         }
 
