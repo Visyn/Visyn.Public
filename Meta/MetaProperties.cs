@@ -61,11 +61,13 @@ namespace Visyn.Public.Meta
         {
             Properties[nameof(Name)] = newName;
         }
+
         public void AppendName(string suffix)
         {
             var name = Properties[nameof(Name)];
             Properties[nameof(Name)] = $"{name}{suffix}";
         }
+
         public MetaProperties CopyProperties(string suffix) 
             => new MetaProperties(Name + suffix, this);
 
