@@ -25,6 +25,17 @@ namespace Visyn.Public.Types
             return objects;
         }
 
+
+        public static string FromBytes(byte[] bytes)
+        {
+            var chars = new char[bytes.Length];
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                chars[i] = (char)bytes[i];
+            }
+            return new string(chars);
+        }
+
         public static bool ContainsControlChar(this string text)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery
@@ -81,6 +92,62 @@ namespace Visyn.Public.Types
             var split = source.Split(delimiter);
             kvp = split.Length == 2 ? new KeyValuePair<string, string>(split[0],split[1]) : new KeyValuePair<string, string>();
             return split.Length == 2;
+        }
+
+        public static T[] ParseDelimitedString<T>(this string message, char[] delimiter, Func<string, T> convertFunc, StringSplitOptions options = StringSplitOptions.None)
+        {
+            var split = message.Split(delimiter, options);
+            var result = new T[split.Length];
+            for (var i = 0; i < result.Length; i++)
+            {
+                result[i] = convertFunc(split[i]);
+            }
+            return result;
+        }
+
+        public delegate bool TryParseDelegate<T>(string input, out T output);
+
+        public static bool TryParseDelimitedString<T>(this string message, char[] delimiter, TryParseDelegate<T> convertFunc, StringSplitOptions options, out T[] result, out int successCount)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                result = new T[0];
+                successCount = 0;
+                return false;
+            }
+            var split = message.Split(delimiter, options);
+
+            successCount = 0;
+            if (options == StringSplitOptions.None)
+            {
+                result = new T[split.Length];
+                for (var i = 0; i < split.Length; i++)
+                {
+                    T output;
+                    if (convertFunc.Invoke(split[i], out output))
+                    {
+                        successCount++;
+                    }
+                    result[i] = output;
+                }
+                return successCount == split.Length;
+            }
+            else if(options == StringSplitOptions.RemoveEmptyEntries)
+            {
+                var resultList = new List<T>(split.Length);
+                foreach (string item in split)
+                {
+                    T output;
+                    if (convertFunc.Invoke(item.Trim(), out output))
+                    {
+                        resultList.Add( output);
+                        successCount++;
+                    }
+                }
+                result = resultList.ToArray();
+                return successCount == split.Length;
+            }
+            throw new ArgumentOutOfRangeException(nameof(options),$"StringSplitOptions value not supported [{options}]");
         }
 
         public static string LettersOnly(this string source)
