@@ -107,47 +107,48 @@ namespace Visyn.Public.Types
 
         public delegate bool TryParseDelegate<T>(string input, out T output);
 
-        public static bool TryParseDelimitedString<T>(this string message, char[] delimiter, TryParseDelegate<T> convertFunc, StringSplitOptions options, out T[] result, out int successCount)
+        public static bool TryParseDelimitedString<T>(this string message, char[] delimiter, TryParseDelegate<T> convertFunc, StringSplitOptions options, out List<T> result, out int successCount)
         {
+            successCount = 0;
             if (string.IsNullOrEmpty(message))
             {
-                result = new T[0];
-                successCount = 0;
+                result = new List<T>();
                 return false;
             }
             var split = message.Split(delimiter, options);
 
-            successCount = 0;
-            if (options == StringSplitOptions.None)
+            result = new List<T>(split.Length);
+ //           if (options == StringSplitOptions.None)
             {
-                result = new T[split.Length];
-                for (var i = 0; i < split.Length; i++)
-                {
-                    T output;
-                    if (convertFunc.Invoke(split[i], out output))
-                    {
-                        successCount++;
-                    }
-                    result[i] = output;
-                }
-                return successCount == split.Length;
-            }
-            else if(options == StringSplitOptions.RemoveEmptyEntries)
-            {
-                var resultList = new List<T>(split.Length);
+                result = new List<T>(split.Length);
                 foreach (string item in split)
                 {
                     T output;
                     if (convertFunc.Invoke(item.Trim(), out output))
                     {
-                        resultList.Add( output);
+                        result.Add(output);
                         successCount++;
                     }
+                    else if(options == StringSplitOptions.None) result.Add( output);
                 }
-                result = resultList.ToArray();
                 return successCount == split.Length;
             }
-            throw new ArgumentOutOfRangeException(nameof(options),$"StringSplitOptions value not supported [{options}]");
+            //else if(options == StringSplitOptions.RemoveEmptyEntries)
+            //{
+
+            //    foreach (string item in split)
+            //    {
+            //        T output;
+            //        if (convertFunc.Invoke(item.Trim(), out output))
+            //        {
+            //            resultList.Add( output);
+            //            successCount++;
+            //        }
+            //    }
+            //    result = resultList.ToArray();
+            //    return successCount == split.Length;
+            //}
+ //           throw new ArgumentOutOfRangeException(nameof(options),$"StringSplitOptions value not supported [{options}]");
         }
 
         public static string LettersOnly(this string source)
