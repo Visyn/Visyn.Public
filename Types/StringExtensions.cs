@@ -118,7 +118,6 @@ namespace Visyn.Public.Types
             var split = message.Split(delimiter, options);
 
             result = new List<T>(split.Length);
- //           if (options == StringSplitOptions.None)
             {
                 result = new List<T>(split.Length);
                 foreach (string item in split)
@@ -133,22 +132,6 @@ namespace Visyn.Public.Types
                 }
                 return successCount == split.Length;
             }
-            //else if(options == StringSplitOptions.RemoveEmptyEntries)
-            //{
-
-            //    foreach (string item in split)
-            //    {
-            //        T output;
-            //        if (convertFunc.Invoke(item.Trim(), out output))
-            //        {
-            //            resultList.Add( output);
-            //            successCount++;
-            //        }
-            //    }
-            //    result = resultList.ToArray();
-            //    return successCount == split.Length;
-            //}
- //           throw new ArgumentOutOfRangeException(nameof(options),$"StringSplitOptions value not supported [{options}]");
         }
 
         public static string LettersOnly(this string source)

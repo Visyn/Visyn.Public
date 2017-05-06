@@ -71,6 +71,7 @@
     <Compile Include="Exceptions\IVisynException.cs" />
     <Compile Include="Exceptions\MissingItemException.cs" />
     <Compile Include="Exceptions\NotAssignableException.cs" />
+    <Compile Include="Exceptions\ValueOutOfRangeException.cs" />
     <Compile Include="Format\FormatStrings.cs" />
     <Compile Include="Geometry\IPoint.cs" />
     <Compile Include="Geometry\IPoint3D.cs" />
