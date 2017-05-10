@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace Visyn.Public.Types
     public static class StringExtensions
     {
         [Obsolete("Use item?ToString() ?? string.Empty",true)]
-        public static string ToStringNotNull(object item) { return item?.ToString() ?? ""; }
+        public static string ToStringNotNull(object item) => item?.ToString() ?? "";
+
         [Obsolete("Use LettersOnly instead", true)]
         public static string CharactersOnly(this string source, char[] skip = null) => LettersOnly(source, skip);
 
@@ -35,6 +37,12 @@ namespace Visyn.Public.Types
             }
             return new string(chars);
         }
+
+        public static string JoinWith(this IEnumerable<string> strings, char ch ) => string.Join(ch.ToString(), strings);
+
+        public static string JoinWith(this IEnumerable strings, char ch) => string.Join(ch.ToString(), strings);
+
+        public static string JoinWith(this IEnumerable strings, string chars) => string.Join(chars, strings);
 
         public static bool ContainsControlChar(this string text)
         {
