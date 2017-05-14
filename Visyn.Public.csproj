@@ -65,6 +65,8 @@
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\StringCriteria.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />
+    <Compile Include="Exceptions\ThrowException.cs" />
+    <Compile Include="Exceptions\SupressException.cs" />
     <Compile Include="Exceptions\ExceptionSource.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Exceptions\IExceptionSource.cs" />
@@ -78,6 +80,8 @@
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
+    <Compile Include="Io\DebugOutput.cs" />
+    <Compile Include="Io\IOutputDevice.cs" />
     <Compile Include="Log\IExceptionLog.cs" />
     <Compile Include="Log\ILogEntry.cs" />
     <Compile Include="Log\SeverityLevel.cs" />
@@ -93,7 +97,7 @@
     <Compile Include="Meta\MetaProperties.cs" />
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
-    <Compile Include="Types\StringExtensions.cs" />
+    <Compile Include="Text\StringExtensions.cs" />
     <Compile Include="Types\Time\DateTimeExtensions.cs" />
     <Compile Include="Types\Time\TimeSpanExtensions.cs" />
     <Compile Include="VisynApp\IVisynApp.cs" />
@@ -106,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Serialize\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
