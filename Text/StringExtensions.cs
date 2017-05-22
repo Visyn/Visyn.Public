@@ -38,6 +38,18 @@ namespace Visyn.Public.Text
             return new string(chars);
         }
 
+        public static IEnumerable<int> IndexsOfAll(this string text, params char[] find)
+        {
+            if(string.IsNullOrEmpty(text)) yield break;
+            for(var i=0;i<text.Length;i++)
+            {
+                if (find.Any((f) => f == text[i])) yield return i;
+                //var ch = text[i];
+                //foreach(var f in find)
+                //    if (ch == f) yield return i;
+            }
+        }
+
         public static string JoinWith(this IEnumerable<string> strings, char ch ) => string.Join(ch.ToString(), strings);
 
         public static string JoinWith(this IEnumerable strings, char ch) => string.Join(ch.ToString(), strings);
