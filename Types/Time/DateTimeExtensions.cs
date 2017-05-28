@@ -22,11 +22,16 @@ namespace Visyn.Public.Types.Time
 
             return date.AddTicks(halfIntervelTicks - ((date.Ticks + halfIntervelTicks) % interval.Ticks));
         }
-        
+
+        public static DateTime DateTime1970() => new DateTime(1970, 1, 1, 0, 0, 0);
         public static TimeSpan TimeSince1970(this DateTime date) => date - new DateTime(1970,1,1,0,0,0);
 
         public static double MillisecondsSince1970(this DateTime date) => (date - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
 
         public static DateTime FromMillisecondsSince1970(this double milliseconds) => new DateTime(1970,1,1,0,0,0).AddMilliseconds(milliseconds);
+
+        public static double SecondsSince1970(this DateTime date) => (date - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+
+        public static DateTime FromSecondsSince1970(this double seconds) => new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(seconds);
     }
 }
