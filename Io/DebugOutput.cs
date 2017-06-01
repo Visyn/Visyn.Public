@@ -14,7 +14,7 @@ namespace Visyn.Public.Io
             if(text.Contains(Environment.NewLine))
             {
                 var split = text.Split(new [] { Environment.NewLine} , StringSplitOptions.None);
-                for(int i=0;i<split.Length-1;i++)
+                for(var i=0;i<split.Length-1;i++)
                 {
                     WriteLine(split[i]);
                 }

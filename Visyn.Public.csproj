@@ -101,6 +101,7 @@
     <Compile Include="Serialize\OnDeserialized.cs" />
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Meta\MetaProperties.cs" />
+    <Compile Include="Text\StringSplitIndexOptions.cs" />
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
     <Compile Include="Text\StringExtensions.cs" />

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Visyn.Public.Text
-{   
+{
     public static class StringExtensions
     {
         [Obsolete("Use item?ToString() ?? string.Empty",true)]
@@ -38,7 +38,16 @@ namespace Visyn.Public.Text
             return new string(chars);
         }
 
-        public static IEnumerable<int> IndexsOfAll(this string text, params char[] find)
+        [Obsolete("Mispelled, use: IndexesOfAll", true)]
+        public static IEnumerable<int> IndexsOfAll(this string text, params char[] find) => IndexesOfAll(text, find);
+
+        /// <summary>
+        /// Returns the indexes of all specified characters
+        /// </summary>
+        /// <param name="text">The text to parse.</param>
+        /// <param name="find">The characters to find.</param>
+        /// <returns>IEnumerable&lt;System.Int32&gt; Indexes of specified characters</returns>
+        public static IEnumerable<int> IndexesOfAll(this string text, params char[] find)
         {
             if(string.IsNullOrEmpty(text)) yield break;
             for(var i=0;i<text.Length;i++)
@@ -242,6 +251,40 @@ namespace Visyn.Public.Text
                     }
                 }
                 return new[] { source };
+            }
+        }
+
+
+
+        public static IEnumerable<string> SplitAtIndex(this string source, IEnumerable<int> indexes)
+        {
+            var previousSplit = 0;
+            foreach(var index in indexes)
+            {
+                yield return source.Substring(previousSplit, index - previousSplit);
+                previousSplit = index;
+            }
+            yield return source.Substring(previousSplit);
+        }
+
+        public static IEnumerable<string> SplitAtIndex(this string source, IEnumerable<int> indexes, StringSplitIndexOptions options)
+        {
+            string substring;
+            var previousSplit = 0;
+            foreach (var index in indexes)
+            {
+                substring = source.Substring(previousSplit, index - previousSplit);
+                if (!options.HasFlag(StringSplitIndexOptions.RemoveEmptyEntries) || !string.IsNullOrWhiteSpace(substring))
+                {
+                    yield return substring;
+                }
+                previousSplit = index;
+                if(options.HasFlag(StringSplitIndexOptions.RemoveIndexChar)) previousSplit++;
+            }
+            substring = source.Substring(previousSplit);
+            if (!options.HasFlag(StringSplitIndexOptions.RemoveEmptyEntries) || !string.IsNullOrWhiteSpace(substring))
+            {
+                yield return substring;
             }
         }
 
