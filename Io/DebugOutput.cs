@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using Visyn.Public.Io;
 
-namespace Visyn.Public.Io
+namespace Visyn.Core.Io
 {
     public class DebugOutput : IOutputDevice
     {
