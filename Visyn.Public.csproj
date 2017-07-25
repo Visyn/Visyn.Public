@@ -86,6 +86,7 @@
     <Compile Include="HTML\IHtmlColor.cs" />
     <Compile Include="Io\DebugOutput.cs" />
     <Compile Include="Io\IOutputDevice.cs" />
+    <Compile Include="Io\OutputDevice.cs" />
     <Compile Include="JetBrains\JetBrains.cs" />
     <Compile Include="Log\IExceptionLog.cs" />
     <Compile Include="Log\ILogEntry.cs" />
