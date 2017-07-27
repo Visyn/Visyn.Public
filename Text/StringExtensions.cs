@@ -144,6 +144,12 @@ namespace Visyn.Public.Text
 
         public delegate bool TryParseDelegate<T>(string input, out T output);
 
+        public static T TryParse<T>(this string text, TryParseDelegate<T> tryParseFunction )
+        {
+            T value;
+            return tryParseFunction(text, out value) ? value : default(T);
+        }
+
         public static bool TryParseDelimitedString<T>(this string message, char[] delimiter, TryParseDelegate<T> tryConvertFunc , StringSplitOptions options, out List<T> result, out int successCount)
         {
             successCount = 0;
@@ -333,6 +339,31 @@ namespace Visyn.Public.Text
             return options == StringSplitOptions.None
                 ? strings.Trim(trimChars)
                 : strings.Select(str => str?.Trim(trimChars)).Where(trim => trim?.Length > 0);
+        }
+
+        public static IEnumerable<string> Trim(this IEnumerable<string> strings, string[] trimStrings) => strings.Select(str => str?.Trim(trimStrings));
+        public static IEnumerable<string> Trim(this IEnumerable<string> strings, string[] trimStrings, StringSplitOptions options)
+        {
+            return options == StringSplitOptions.None
+                ? strings.Trim(trimStrings)
+                : strings.Select(str => str?.Trim(trimStrings)).Where(trim => trim?.Length > 0);
+        }
+
+        public static string Trim(this string text, string[] trimStrings)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            var trimmed = text;
+            int length;
+            do
+            {
+                length = trimmed.Length;
+                foreach (var trim in trimStrings)
+                {
+                    if (trimmed.StartsWith(trim)) trimmed = trimmed.Substring(trim.Length);
+                    if (trimmed.EndsWith(trim)) trimmed = trimmed.Substring(0, trimmed.Length - trim.Length);
+                }
+            } while (length > 0 && length != trimmed.Length);
+            return trimmed;
         }
     }
 }
