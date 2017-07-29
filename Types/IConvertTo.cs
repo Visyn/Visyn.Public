@@ -1,4 +1,4 @@
-namespace Visyn.Wpf.Controls
+namespace Visyn.Public.Types
 {
     public interface IConvertTo<T>
     {

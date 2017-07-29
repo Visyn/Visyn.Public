@@ -106,8 +106,11 @@
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
     <Compile Include="Text\StringExtensions.cs" />
+    <Compile Include="Types\IType.cs" />
+    <Compile Include="Types\IValue.cs" />
     <Compile Include="Types\Time\DateTimeExtensions.cs" />
     <Compile Include="Types\Time\TimeSpanExtensions.cs" />
+    <Compile Include="Types\ValueWithDefault.cs" />
     <Compile Include="VisynApp\IVisynApp.cs" />
     <Compile Include="VisynApp\IVisynAppSettings.cs" />
   </ItemGroup>
