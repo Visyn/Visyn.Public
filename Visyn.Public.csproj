@@ -84,6 +84,7 @@
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
+    <Compile Include="Threads\IInvoker.cs" />
     <Compile Include="Io\DebugOutput.cs" />
     <Compile Include="Io\IOutputDevice.cs" />
     <Compile Include="Io\OutputDevice.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Meta\MetaProperties.cs" />
     <Compile Include="Text\StringSplitIndexOptions.cs" />
+    <Compile Include="Threads\WpfInvoker.cs" />
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
     <Compile Include="Text\StringExtensions.cs" />
