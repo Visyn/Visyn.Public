@@ -22,10 +22,12 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.HTML
+using System.Collections.Generic;
+
+namespace Visyn.Public.Io
 {
-    public interface IHtmlColor
+    public interface IOutputDeviceMultiline : IOutputDevice
     {
-        string GetHtmlColor();
+        void Write(IEnumerable<string> lines);
     }
 }

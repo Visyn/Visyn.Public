@@ -22,10 +22,15 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.HTML
+using System;
+using System.Collections.Generic;
+
+namespace Visyn.Public.Log
 {
-    public interface IHtmlColor
+    public interface ILogItems<TEntry>
     {
-        string GetHtmlColor();
+        IDictionary<DateTime, TEntry> Entries();
+
+        void LogItem(TEntry item);
     }
 }
