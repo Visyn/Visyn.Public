@@ -30,6 +30,6 @@ namespace Visyn.Public.Threads
     {
         void Invoke(Delegate method, object[] args);
         void Invoke<T>(Action<T> method, T param);
-        void Invoke<T>(EventHandler<T> handler, T param);
+        void Invoke<T>(EventHandler<T> handler, object sender, T param);
     }
 }

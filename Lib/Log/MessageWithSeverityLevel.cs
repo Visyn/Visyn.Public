@@ -22,33 +22,42 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Automation
+using System;
+using Visyn.Public.Types;
+
+namespace Visyn.Public.Log
 {
-    public interface IExecute
+    public class MessageWithSeverityLevel : ISeverityLevel, IValue<string>, IType
     {
-        /// <summary>
-        /// Execute item
-        /// </summary>
-        /// <returns>Execution results</returns>
-        ExecutionResult Execute();
-    }
+        #region Implementation of ISeverityLevel
 
-    /// <summary>
-    /// Execute item on payload type T
-    /// </summary>
-    /// <typeparam name="T">Execution results of type T</typeparam>
-    public interface IExecute<T> : IExecute where T : class
-    {
-        ExecutionResult<T> Execute(T payload);
-    }
+        public SeverityLevel SeverityLevel { get; }
 
-    /// <summary>
-    /// Pipelined exectuion on payload type T
-    /// </summary>
-    /// <typeparam name="T">Payload for execution of type T</typeparam>
-    /// <typeparam name="U">Result of execution with payload type U</typeparam>
-    public interface IExecute<T,U> : IExecute
-    {
-        ExecutionResult<U> Execute(T payload);
+        #endregion
+        #region Implementation of IValue<string>
+
+        public string Value { get; }
+
+        #endregion
+
+        #region Implementation of IType
+
+        public Type Type => typeof(string);
+
+        #endregion
+
+        public MessageWithSeverityLevel(string message, SeverityLevel severity)
+        {
+            Value = message;
+            SeverityLevel = severity;
+        }
+
+        #region Implementation of IValue
+
+        public object ValueAsObject() => Value;
+
+        #endregion
+
+
     }
 }

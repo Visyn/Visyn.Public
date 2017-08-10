@@ -86,6 +86,8 @@
     <Compile Include="HTML\IHtmlColor.cs" />
     <Compile Include="Io\IOutputDeviceMultiline.cs" />
     <Compile Include="Log\ILogItems.cs" />
+    <Compile Include="Log\ISeverityLevel.cs" />
+    <Compile Include="Log\MessageWithSeverityLevel.cs" />
     <Compile Include="Mathematics\ColorStruct.cs" />
     <Compile Include="Threads\IInvoker.cs" />
     <Compile Include="Io\DebugOutput.cs" />

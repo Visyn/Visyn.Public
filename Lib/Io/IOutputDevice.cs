@@ -26,6 +26,13 @@ using System;
 
 namespace Visyn.Public.Io
 {
+    public interface IOutputDevice<T> : IOutputDevice
+    {
+        void Write(string text, T data);
+        void WriteLine(string line, T data);
+
+//        void Write(Func<string> func, T data);
+    }
 
     public interface IOutputDevice
     {

@@ -63,16 +63,16 @@ namespace Visyn.Public.Threads
         }
 
 
-        public void Invoke<T>(EventHandler<T> handler, T param)
+        public void Invoke<T>(EventHandler<T> handler, object sender, T param)
         {
             if (handler == null) return;
             if (Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(handler, new object[] { param });
+                Dispatcher.Invoke(handler, new object[] { sender, param });
             }
             else
             {
-                handler.Invoke(null, param);
+                handler.Invoke(sender, param);
             }
         }
 
