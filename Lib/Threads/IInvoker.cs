@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Threads
+namespace Visyn.Threads
 {
     public interface IInvoker
     {

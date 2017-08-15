@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     public class NotAssignableException : Exception, IVisynException
     {

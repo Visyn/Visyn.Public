@@ -9,7 +9,7 @@
     <ProjectGuid>{ABA4963B-56BA-4B42-8C2A-17BE811E5F8E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Visyn.Public</RootNamespace>
+    <RootNamespace>Visyn</RootNamespace>
     <AssemblyName>Visyn.Public</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -60,10 +60,9 @@
     <Compile Include="Automation\IExecute.cs" />
     <Compile Include="Automation\IProgressNotification.cs" />
     <Compile Include="Automation\TaskInfo.cs" />
-    <Compile Include="Collections\IEnumerableColumns.cs" />
-    <Compile Include="Collections\KeyValueList.cs" />
     <Compile Include="CommandLine\CommandLineArgs.cs" />
     <Compile Include="CommandLine\ICommandLineArgs.cs" />
+    <Compile Include="Comparison\CustomComparer.cs" />
     <Compile Include="Criteria\ComparableCriteria.cs" />
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\StringCriteria.cs" />
@@ -84,11 +83,18 @@
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
+    <Compile Include="Io\BackgroundOutputDevice.cs" />
+    <Compile Include="Io\BackgroundOutputDeviceMultiline.cs" />
+    <Compile Include="Io\BackgroundOutputDeviceWithSeverity.cs" />
+    <Compile Include="Io\DelimitedExtensions.cs" />
+    <Compile Include="Io\IDelimitedData.cs" />
     <Compile Include="Io\IOutputDeviceMultiline.cs" />
+    <Compile Include="Io\OutputToCollection.cs" />
     <Compile Include="Log\ILogItems.cs" />
     <Compile Include="Log\ISeverityLevel.cs" />
     <Compile Include="Log\MessageWithSeverityLevel.cs" />
     <Compile Include="Mathematics\ColorStruct.cs" />
+    <Compile Include="Reflection\PropertyDescriptionHelper.cs" />
     <Compile Include="Threads\IInvoker.cs" />
     <Compile Include="Io\DebugOutput.cs" />
     <Compile Include="Io\IOutputDevice.cs" />
@@ -104,7 +110,7 @@
     <Compile Include="Log\IEventLevel.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporting\Html\IHtmlColorGenerator.cs" />
+    <Compile Include="HTML\IHtmlColorGenerator.cs" />
     <Compile Include="Serialize\OnDeserialized.cs" />
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Meta\MetaProperties.cs" />
@@ -113,8 +119,11 @@
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
     <Compile Include="Text\StringExtensions.cs" />
+    <Compile Include="Types\IFieldConverter.cs" />
+    <Compile Include="Types\IImmutable.cs" />
     <Compile Include="Types\IType.cs" />
     <Compile Include="Types\IValue.cs" />
+    <Compile Include="Types\Ranged.cs" />
     <Compile Include="Types\Time\DateTimeExtensions.cs" />
     <Compile Include="Types\Time\TimeSpanExtensions.cs" />
     <Compile Include="Types\ValueWithDefault.cs" />
@@ -126,7 +135,12 @@
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\WindowsBase.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reporting\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

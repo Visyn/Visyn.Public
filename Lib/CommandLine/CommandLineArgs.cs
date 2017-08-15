@@ -21,14 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
 using System;
 
-namespace Visyn.Public.CommandLine
+namespace Visyn.CommandLine
 {
     /// <summary>
     /// Class CommandLineArgs base class called from all applications.
     /// </summary>
-    /// <seealso cref="Visyn.Public.CommandLine.ICommandLineArgs" />
+    /// <seealso cref="ICommandLineArgs" />
     public class CommandLineArgs : ICommandLineArgs
     {
         /// <summary>

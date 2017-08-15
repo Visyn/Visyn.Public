@@ -22,7 +22,7 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Geometry
+namespace Visyn.Geometry
 {
     public interface IPoint
     {

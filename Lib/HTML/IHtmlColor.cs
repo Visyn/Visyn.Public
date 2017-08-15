@@ -22,7 +22,7 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.HTML
+namespace Visyn.HTML
 {
     public interface IHtmlColor
     {

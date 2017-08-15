@@ -27,7 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Visyn.Public.Text
+namespace Visyn.Text
 {
     public static class StringExtensions
     {

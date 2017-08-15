@@ -26,9 +26,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Visyn.Public.Exceptions;
+using Visyn.Exceptions;
 
-namespace Visyn.Public.Meta
+namespace Visyn.Meta
 {
     public class MetaProperties : IReadOnlyDictionary<string,object>, IEnumerable<KeyValuePair<string, object>> 
     {

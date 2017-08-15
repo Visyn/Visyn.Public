@@ -26,9 +26,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Visyn.Public.JetBrains;
+using Visyn.JetBrains;
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     public static class ExceptionExtensions
     {

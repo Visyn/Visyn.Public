@@ -24,9 +24,9 @@
 
 using System;
 using System.Windows.Threading;
-using Visyn.Public.Types;
+using Visyn.Types;
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     public delegate bool ExceptionHandler(object source, Exception exception);
     public class ExceptionSource : DisposeBase, IExceptionSource, IExceptionHandler

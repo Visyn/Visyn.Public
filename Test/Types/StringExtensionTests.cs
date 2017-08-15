@@ -25,9 +25,9 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Visyn.Public.Text;
+using Visyn.Text;
 
-namespace Visyn.Public.Test.Types
+namespace Visyn.Test.Types
 {
     [TestFixture]
     public class StringExtensionTests

@@ -25,7 +25,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     public interface ILogItems<TEntry>
     {

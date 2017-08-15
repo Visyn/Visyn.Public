@@ -23,41 +23,44 @@
 #endregion
 
 using System;
-using Visyn.Public.Types;
+using Visyn.Types;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
+
     public class MessageWithSeverityLevel : ISeverityLevel, IValue<string>, IType
     {
+        public string Message { get; }
+
         #region Implementation of ISeverityLevel
 
         public SeverityLevel SeverityLevel { get; }
 
         #endregion
+
         #region Implementation of IValue<string>
 
-        public string Value { get; }
-
-        #endregion
-
-        #region Implementation of IType
-
         public Type Type => typeof(string);
-
+        public string Value => Message;
+        
         #endregion
 
         public MessageWithSeverityLevel(string message, SeverityLevel severity)
         {
-            Value = message;
+            Message = message;
             SeverityLevel = severity;
         }
 
         #region Implementation of IValue
 
-        public object ValueAsObject() => Value;
+        public object ValueAsObject() => Message;
 
         #endregion
 
+        #region Overrides of Object
 
+        public override string ToString() => $"{SeverityLevel}: {Message}";
+
+        #endregion
     }
 }

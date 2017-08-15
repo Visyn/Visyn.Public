@@ -25,7 +25,7 @@
 using System;
 using System.Windows;
 
-namespace Visyn.Public.Geometry
+namespace Visyn.Geometry
 {
 
     public class PointXY : IPoint , IComparable<IPoint>

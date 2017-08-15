@@ -24,7 +24,7 @@
 
 using System.Diagnostics;
 
-namespace Visyn.Public.Types
+namespace Visyn.Types
 {
     /// <summary>
     /// Interface IValue
@@ -43,7 +43,7 @@ namespace Visyn.Public.Types
     /// Interface indicating a typed Value property is present
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IValue<T> : IValue
+    public interface IValue<out T> : IValue
     {
         /// <summary>
         /// Value of type T

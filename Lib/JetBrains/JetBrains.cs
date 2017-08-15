@@ -22,7 +22,7 @@ using System;
 // ReSharper disable RedundantAttributeUsageProperty
 // ReSharper disable UnusedParameter.Local
 
-namespace Visyn.Public.JetBrains
+namespace Visyn.JetBrains
 {
     /// <summary>
     /// Indicates that marked element should be localized or not.

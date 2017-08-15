@@ -22,7 +22,7 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Automation
+namespace Visyn.Automation
 {
     public interface IExecute
     {

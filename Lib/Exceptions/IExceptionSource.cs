@@ -24,7 +24,7 @@
 
 using System.Windows.Threading;
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     /// <summary>
     /// Interface marking class for delegation of exceptions to registered destination

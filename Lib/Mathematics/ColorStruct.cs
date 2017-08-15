@@ -22,9 +22,9 @@
 // SOFTWARE.
 #endregion
 
-using Visyn.Public.HTML;
+using Visyn.HTML;
 
-namespace Visyn.Public.Mathematics
+namespace Visyn.Mathematics
 {
     public struct ColorStruct : IColor
     {

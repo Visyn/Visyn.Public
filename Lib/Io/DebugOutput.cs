@@ -26,7 +26,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace Visyn.Public.Io
+namespace Visyn.Io
 {
     public class DebugOutput : IOutputDevice
     {

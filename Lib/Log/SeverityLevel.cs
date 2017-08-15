@@ -22,9 +22,9 @@
 // SOFTWARE.
 #endregion
 
-using Visyn.Public.Mathematics;
+using Visyn.Mathematics;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     public enum SeverityLevel
     {

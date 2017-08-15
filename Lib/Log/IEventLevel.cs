@@ -22,7 +22,7 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     public interface IEventLevel<T>
     {

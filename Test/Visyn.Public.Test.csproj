@@ -7,7 +7,7 @@
     <ProjectGuid>{8D64C921-38BE-4D75-BB01-2D27542E2BD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Visyn.Public.Test</RootNamespace>
+    <RootNamespace>Visyn.Test</RootNamespace>
     <AssemblyName>Visyn.Public.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

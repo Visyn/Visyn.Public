@@ -22,9 +22,9 @@
 // SOFTWARE.
 #endregion
 
-using Visyn.Public.VisynApp;
+using Visyn.VisynApp;
 
-namespace Visyn.Public.Settings
+namespace Visyn.Settings
 {
     public class CefAppSettings : IVisynAppSettings
     {

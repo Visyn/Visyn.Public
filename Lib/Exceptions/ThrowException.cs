@@ -24,10 +24,10 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using Visyn.Public.Io;
-using Visyn.Public.Log;
+using Visyn.Io;
+using Visyn.Log;
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     public class ThrowException : IExceptionHandler
     {

@@ -25,7 +25,7 @@
 using System;
 using System.Windows.Threading;
 
-namespace Visyn.Public.Threads
+namespace Visyn.Threads
 {
     public class WpfInvoker : IInvoker
     {

@@ -24,7 +24,7 @@
 
 using System.Collections;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     public interface ILog<TEventLevel>
     {

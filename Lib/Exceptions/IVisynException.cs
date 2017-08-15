@@ -22,7 +22,7 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     /// <summary>
     /// Interface IVisynException

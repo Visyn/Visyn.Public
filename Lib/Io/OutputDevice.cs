@@ -24,7 +24,7 @@
 
 using System.Collections.Generic;
 
-namespace Visyn.Public.Io
+namespace Visyn.Io
 {
     public static class OutputDevice
     {

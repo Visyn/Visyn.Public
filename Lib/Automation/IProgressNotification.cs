@@ -21,9 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
 using System.ComponentModel;
 
-namespace Visyn.Public.Automation
+namespace Visyn.Automation
 {
     public interface IProgressNotification : INotifyPropertyChanged
     {

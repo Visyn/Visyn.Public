@@ -25,7 +25,7 @@
 using System;
 using System.Collections;
 
-namespace Visyn.Public.Log.SimpleLog
+namespace Visyn.Log.SimpleLog
 {
     public class SimpleLog<TEventLevel> : SimpleLogBase<TEventLevel,SimpleLogEntry<TEventLevel>> where TEventLevel : struct, IComparable
     {

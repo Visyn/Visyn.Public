@@ -22,9 +22,9 @@
 // SOFTWARE.
 #endregion
 
-namespace Visyn.Public.Types
+namespace Visyn.Types
 {
-    public interface IConvertTo<T>
+    public interface IConvertTo<out T>
     {
         T ConvertTo();
     }

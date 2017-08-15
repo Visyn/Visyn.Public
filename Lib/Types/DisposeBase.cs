@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Types
+namespace Visyn.Types
 {
     public abstract class DisposeBase : IDisposable
     {

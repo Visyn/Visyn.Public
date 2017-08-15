@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Io
+namespace Visyn.Io
 {
     public interface IOutputDevice<T> : IOutputDevice
     {

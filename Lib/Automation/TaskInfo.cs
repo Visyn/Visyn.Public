@@ -21,12 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
 using System;
 using System.Diagnostics;
 using System.Text;
-using Visyn.Public.Types.Time;
+using Visyn.Types.Time;
 
-namespace Visyn.Public.Automation
+namespace Visyn.Automation
 {
     public struct TaskInfo
     {

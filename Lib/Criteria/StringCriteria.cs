@@ -21,10 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Visyn.Public.Criteria
+namespace Visyn.Criteria
 {
     public abstract class StringCriteria : ICriteria<string>
     {

@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Types.Time
+namespace Visyn.Types.Time
 {
     public static class TimeSpanExtensions
     { 

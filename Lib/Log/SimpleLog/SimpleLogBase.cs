@@ -26,7 +26,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Visyn.Public.Log.SimpleLog
+namespace Visyn.Log.SimpleLog
 {
     public abstract class SimpleLogBase<TEventLevel, TEntry> : IExceptionLog<TEventLevel>, ILogItems<TEntry> where TEntry : class, ILogEntry<TEventLevel> where TEventLevel : IComparable
     {

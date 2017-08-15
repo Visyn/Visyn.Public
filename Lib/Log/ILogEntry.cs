@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     public interface ILogEntry<T>
     {

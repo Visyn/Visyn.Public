@@ -22,17 +22,17 @@
 // SOFTWARE.
 #endregion
 
-using Visyn.Public.Exceptions;
+using Visyn.Exceptions;
 
-namespace Visyn.Public.Log
+namespace Visyn.Log
 {
     /// <summary>
     /// Interface IExceptionLog
     /// Indicates a log can handle exceptions
     /// </summary>
     /// <typeparam name="TLogEntry">The type of the t log entry.</typeparam>
-    /// <seealso cref="Visyn.Public.Log.ILog{TLogEntry}" />
-    /// <seealso cref="Visyn.Public.Exceptions.IExceptionHandler" />
+    /// <seealso cref="Visyn.Log.ILog{TLogEntry}" />
+    /// <seealso cref="IExceptionHandler" />
     public interface IExceptionLog<TEventLevel> : ILog<TEventLevel>, IExceptionHandler
     {
     }

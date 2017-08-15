@@ -24,8 +24,7 @@
 
 using System;
 
-
-namespace Visyn.Public.Exceptions
+namespace Visyn.Exceptions
 {
     public class TypeMismatchException : Exception, IVisynException
     {

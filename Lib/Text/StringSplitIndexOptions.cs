@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Text
+namespace Visyn.Text
 {
     [Flags]
     public enum StringSplitIndexOptions

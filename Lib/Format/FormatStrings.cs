@@ -25,7 +25,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Visyn.Public.Format
+namespace Visyn.Format
 {
     public enum FormatConsumer
     {
@@ -46,7 +46,7 @@ namespace Visyn.Public.Format
     /// <summary>
     /// Class FormatInfo : ReadOnlyDictionary&lt;FormatConsumer, string&gt;
     /// </summary>
-    /// <seealso cref="System.Collections.ObjectModel.ReadOnlyDictionary{Visyn.Public.Format.FormatConsumer, System.String}" />
+    /// <seealso cref="System.Collections.ObjectModel.ReadOnlyDictionary{FormatConsumer, System.string}" />
     public class FormatInfo : ReadOnlyDictionary<FormatConsumer, string>
     {
         /// <summary>Initializes a new instance of the <see cref="T:System.Collections.ObjectModel.ReadOnlyDictionary`2" /> class that is a wrapper around the specified dictionary.</summary>

@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Visyn.Public.Log.SimpleLog
+namespace Visyn.Log.SimpleLog
 {
     public class SimpleLogEntry<TEventLevel> : ILogEntry<TEventLevel>
     {

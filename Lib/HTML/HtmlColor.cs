@@ -23,9 +23,9 @@
 #endregion
 
 using System;
-using Visyn.Public.Mathematics;
+using Visyn.Mathematics;
 
-namespace Visyn.Public.HTML
+namespace Visyn.HTML
 {
     public static class HtmlColors
     {
