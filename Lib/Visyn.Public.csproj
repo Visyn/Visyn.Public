@@ -90,6 +90,7 @@
     <Compile Include="Io\IDelimitedData.cs" />
     <Compile Include="Io\IOutputDeviceMultiline.cs" />
     <Compile Include="Io\OutputToCollection.cs" />
+    <Compile Include="Io\OutputToCollectionSeverity.cs" />
     <Compile Include="Log\ILogItems.cs" />
     <Compile Include="Log\ISeverityLevel.cs" />
     <Compile Include="Log\MessageWithSeverityLevel.cs" />
