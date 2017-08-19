@@ -8,69 +8,103 @@ namespace Visyn.Io
 {
     public class BackgroundOutputDeviceWithSeverity : BackgroundOutputDeviceMultiline,IOutputDevice<SeverityLevel>
     {
-        public BackgroundOutputDeviceWithSeverity(IOutputDeviceMultiline outputDevice, Func<string, string> process) 
+        private readonly IOutputDevice<SeverityLevel> _backgroundDeviceWithSeverity;
+        public BackgroundOutputDeviceWithSeverity(IOutputDevice<SeverityLevel> outputDevice, Func<string, string> process) 
             : base(outputDevice, process)
         {
+            _backgroundDeviceWithSeverity = outputDevice;
         }
 
-        public BackgroundOutputDeviceWithSeverity(Dispatcher dispatcher, IOutputDeviceMultiline outputDevice, Func<string, string> process) 
+        public BackgroundOutputDeviceWithSeverity(Dispatcher dispatcher, IOutputDevice<SeverityLevel> outputDevice, Func<string, string> process) 
             : this(outputDevice, process)
         {
             Dispatcher = dispatcher;
         }
 
-        private void backgroundTaskMultiLine()
+        #region Overrides of BackgroundOutputDeviceMultiline
+
+        protected override void ProcessData()
         {
-            TaskId = Task.CurrentId;
-            var items = new List<string>();
-            while (true)
+            var count = Count;
+
+            if (count <= 0)
             {
-                var count = Queue.Count;
+                Task.Delay(DelayIntervalMs);
+                return;
+            }
+            if (count == 1)
+            {
+                ProcessItem();
+                return;
+            }
+            // count > 1
+            var items = new List<string>(count);
+            var index = 0;
 
-                if (count <= 0)
+            while (count-- > 0)
+            {
+                if(items == null) items = new List<string>(count);
+                Func<object> next;
+                if(TryPeek(out next))
                 {
-                    Task.Delay(DelayIntervalMs);
-                    continue;
+                    if (next is Func<string>)
+                    {
+                        var item = DequeueItem() as string;
+                        if(item != null) items.Add(item);
+                    }
+                    else
+                    {
+                        if (items.Count > 0)
+                        {
+                            ProcessStrings(items);
+                            items = null;
+                        }
+                        ProcessItem();
+                    }
                 }
-                if (count == 1)
-                {
-                    var text = DequeueText();
-                    ProcessString(text);
-                    continue;
-                }
-                // count > 1
-                var index = 0;
 
-                while (count-- > 0)
-                {
-                    var text = DequeueText();
-                    if (text != null) items.Add(text);
+                if (index++ > 100) break;
+            }
+            if (items?.Count > 0) ProcessStrings(items);
+        }
 
-                    if (index++ > 100) break;
-                }
-                if (items.Count <= 0) continue;
-                if (items.Count == 1) ProcessString(items[0]);
-                else ProcessStrings(items);
 
-                items.Clear();
+
+        private void ProcessItem()
+        {
+            var item = DequeueItem();
+            var text = item as string;
+            if (text != null) ProcessString(text);
+            else if (item is MessageWithSeverityLevel)
+            {
+                ProcessMessageWithSeverity((MessageWithSeverityLevel) item);
             }
         }
+
+        private void ProcessMessageWithSeverity(MessageWithSeverityLevel item)
+        {
+            var action = new Action(() => _backgroundDeviceWithSeverity.Write(item.Message,item.SeverityLevel));
+            if (Dispatcher != null) Dispatcher.BeginInvoke(action);
+            else action();
+        }
+
+        #endregion
 
         #region Implementation of IOutputDevice<SeverityLevel>
 
         public void Write(string text, SeverityLevel severity)
         {
-            Queue.Enqueue(() => new MessageWithSeverityLevel(text,severity));
+            Add(() => new MessageWithSeverityLevel(text,severity));
         }
 
         public void WriteLine(string line, SeverityLevel severity)
         {
-            Queue.Enqueue(() => new MessageWithSeverityLevel(line, severity));
+            Add(() => new MessageWithSeverityLevel(line, severity));
         }
 
         public void Write(Func<string> func, SeverityLevel severity)
         {
-            Queue.Enqueue(() => new MessageWithSeverityLevel(func.Invoke(), severity));
+            Add(() => new MessageWithSeverityLevel(func.Invoke(), severity));
         }
 
         #endregion

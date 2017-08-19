@@ -10,73 +10,78 @@ namespace Visyn.Io
         private readonly IOutputDeviceMultiline _multLineOutput;
 
 
-        protected BackgroundOutputDeviceMultiline(IOutputDeviceMultiline outputDevice, Func<string, string> process) 
+        protected BackgroundOutputDeviceMultiline(IOutputDevice outputDevice, Func<string, string> process)
             : base(outputDevice, process)
         {
-            _multLineOutput = outputDevice;
+            _multLineOutput = outputDevice as IOutputDeviceMultiline;
         }
 
-        public BackgroundOutputDeviceMultiline(Dispatcher dispatcher, IOutputDeviceMultiline outputDevice, Func<string, string> process) 
-            : this( outputDevice, process)
+        public BackgroundOutputDeviceMultiline(Dispatcher dispatcher, IOutputDevice outputDevice, Func<string, string> process)
+            : this(outputDevice, process)
         {
             Dispatcher = dispatcher;
-            Task.Run(_multLineOutput != null ? backgroundTaskMultiLine : new Action(BackgroundTask));
+            //var t = Task.Run(_multLineOutput != null ? backgroundTaskMultiLine : new Action(BackgroundTask));
+            //var id = t.Id;
+        }
+        
+
+        #region Overrides of BackgroundOutputDevice
+
+        protected override void ProcessData()
+        {
+            var count = Count;
+
+            if (count <= 0)
+            {
+                Task.Delay(DelayIntervalMs);
+                return;
+            }
+            if (count == 1)
+            {
+                var text = DequeueText();
+                ProcessString(text);
+                return;
+            }
+            // count > 1
+            var items = new List<string>(count);
+            var index = 0;
+
+            while (count-- > 0)
+            {
+                var text = DequeueText();
+                if (text != null) items.Add(text);
+
+                if (index++ > 100) break;
+            }
+            if (items.Count <= 0) return;
+            if (items.Count == 1) ProcessString(items[0]);
+            else ProcessStrings(items);
         }
 
-        private void backgroundTaskMultiLine()
+        #endregion
+
+        protected int ProcessStrings(List<string> items)
         {
-            TaskId = Task.CurrentId;
-            var items = new List<string>();
-            while (true)
+            if (items == null) return 0;
+            var count = items.Count;
+            switch (count)
             {
-                var count = Queue.Count;
+                case 0: return 0;
+                case 1: return ProcessString(items[0]);
+                default:
+                    var action = _multLineOutput != null ?
+                        new Action(() => _multLineOutput.Write(items)) :
+                        new Action(() => OutputDevice.Write(items));
 
-                if (count <= 0)
-                {
-                    Task.Delay(DelayIntervalMs);
-                    continue;
-                }
-                if(count == 1)
-                {
-                    var text = DequeueText();
-                    ProcessString(text);
-                    continue;
-                }
-                // count > 1
-                var index = 0;
-
-                while (count-- > 0)
-                {
-                    var text = DequeueText();
-                    if (text != null) items.Add(text);
-
-                    if (index++ > 100) break;
-                }
-                if (items.Count <= 0) continue;
-                if (items.Count == 1) ProcessString(items[0]);
-                else ProcessStrings(items);
-
-                items.Clear();
-            }
-        }
-
-
-        protected void ProcessStrings(List<string> items)
-        {
-            if (items == null) return;
-            var itemsToPass = items.ToArray();
-            var action = _multLineOutput != null ?
-                        new Action(() => _multLineOutput.Write(itemsToPass)) :
-                        new Action(() => OutputDevice.Write(itemsToPass));
-            //     (() => { foreach(var item in items) OutputDevice.WriteLine(item); }) ;
-
-            if (Dispatcher != null)
-            {
-                Dispatcher.BeginInvoke(action);
-            }
-            else
-            {
-                action();
+                    if (Dispatcher != null)
+                    {
+                        Dispatcher.BeginInvoke(action);
+                    }
+                    else
+                    {
+                        action();
+                    }
+                    return count;
             }
         }
 
@@ -92,4 +97,5 @@ namespace Visyn.Io
 
         #endregion
     }
+    
 }

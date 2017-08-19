@@ -115,6 +115,7 @@
     <Compile Include="Settings\CefSettings.cs" />
     <Compile Include="Meta\MetaProperties.cs" />
     <Compile Include="Text\StringSplitIndexOptions.cs" />
+    <Compile Include="Threads\ProcessQueuedDataTask.cs" />
     <Compile Include="Threads\WpfInvoker.cs" />
     <Compile Include="Types\DisposeBase.cs" />
     <Compile Include="Types\IConvertTo.cs" />
