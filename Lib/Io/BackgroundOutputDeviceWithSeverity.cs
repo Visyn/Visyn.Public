@@ -8,14 +8,14 @@ namespace Visyn.Io
 {
     public class BackgroundOutputDeviceWithSeverity : BackgroundOutputDeviceMultiline,IOutputDevice<SeverityLevel>
     {
-        private readonly IOutputDevice<SeverityLevel> _backgroundDeviceWithSeverity;
-        public BackgroundOutputDeviceWithSeverity(IOutputDevice<SeverityLevel> outputDevice, Func<string, string> process) 
+        private readonly OutputToCollectionSeverity _backgroundDeviceWithSeverity;
+        public BackgroundOutputDeviceWithSeverity(OutputToCollectionSeverity outputDevice, Func<string, string> process) 
             : base(outputDevice, process)
         {
             _backgroundDeviceWithSeverity = outputDevice;
         }
 
-        public BackgroundOutputDeviceWithSeverity(Dispatcher dispatcher, IOutputDevice<SeverityLevel> outputDevice, Func<string, string> process) 
+        public BackgroundOutputDeviceWithSeverity(Dispatcher dispatcher, OutputToCollectionSeverity outputDevice, Func<string, string> process) 
             : this(outputDevice, process)
         {
             Dispatcher = dispatcher;
@@ -83,7 +83,8 @@ namespace Visyn.Io
 
         private void ProcessMessageWithSeverity(MessageWithSeverityLevel item)
         {
-            var action = new Action(() => _backgroundDeviceWithSeverity.Write(item.Message,item.SeverityLevel));
+            var action = new Action(() =>
+            	_backgroundDeviceWithSeverity.Write(item));
             if (Dispatcher != null) Dispatcher.BeginInvoke(action);
             else action();
         }

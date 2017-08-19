@@ -40,7 +40,7 @@ namespace Visyn.Threads
 
         public void Invoke(Delegate method, object[] args)
         {
-            if (Dispatcher.CheckAccess())
+            if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(method, args);
             }
@@ -52,7 +52,7 @@ namespace Visyn.Threads
 
         public void Invoke<T>(Action<T> method, T param)
         {
-            if (Dispatcher.CheckAccess())
+            if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(method, param);
             }
@@ -66,7 +66,7 @@ namespace Visyn.Threads
         public void Invoke<T>(EventHandler<T> handler, object sender, T param)
         {
             if (handler == null) return;
-            if (Dispatcher.CheckAccess())
+            if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(handler, new object[] { sender, param });
             }

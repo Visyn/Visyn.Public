@@ -32,7 +32,6 @@ namespace Visyn.Io
 
     public class BackgroundOutputDevice : ProcessQueuedDataTask<Func<object>>, IOutputDevice
     {
-        public static int _deviceNumber;
         public override string Name { get; } = "Background Output Device";
         public Dispatcher Dispatcher { get; protected set; }
         //public int Count => Queue<>.Count;

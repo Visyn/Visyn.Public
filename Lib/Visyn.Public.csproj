@@ -95,6 +95,7 @@
     <Compile Include="Log\MessageWithSeverityLevel.cs" />
     <Compile Include="Mathematics\ColorStruct.cs" />
     <Compile Include="Reflection\PropertyDescriptionHelper.cs" />
+    <Compile Include="Threads\DispatcherExtensions.cs" />
     <Compile Include="Threads\IInvoker.cs" />
     <Compile Include="Io\DebugOutput.cs" />
     <Compile Include="Io\IOutputDevice.cs" />

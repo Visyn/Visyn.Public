@@ -7,8 +7,8 @@ namespace Visyn.Io
 {
     public class BackgroundOutputDeviceMultiline : BackgroundOutputDevice, IOutputDeviceMultiline
     {
+        public override string Name { get; } = "Multiline Output Device";
         private readonly IOutputDeviceMultiline _multLineOutput;
-
 
         protected BackgroundOutputDeviceMultiline(IOutputDevice outputDevice, Func<string, string> process)
             : base(outputDevice, process)
