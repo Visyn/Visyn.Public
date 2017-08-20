@@ -20,8 +20,6 @@ namespace Visyn.Io
             : this(outputDevice, process)
         {
             Dispatcher = dispatcher;
-            //var t = Task.Run(_multLineOutput != null ? backgroundTaskMultiLine : new Action(BackgroundTask));
-            //var id = t.Id;
         }
         
 

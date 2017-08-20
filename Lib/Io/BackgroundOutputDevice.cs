@@ -57,6 +57,7 @@ namespace Visyn.Io
             OutputDevice = outputDevice;
             _process = process;
             Handler = new LogExceptionHandler(this);
+            RateLimitTimeSpan = TimeSpan.FromMilliseconds(250);
         }
 
         public BackgroundOutputDevice(IOutputDevice outputDevice, Func<string, string> process, Dispatcher dispatcher)
