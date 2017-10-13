@@ -178,7 +178,6 @@ namespace Visyn.Serialize
             if (typeof (IFieldConverter).GetTypeInfo().IsAssignableFrom(convType.GetTypeInfo()))
             {
                 var consters = convType.GetTypeInfo().DeclaredConstructors;
-                throw new Exception("Need to fix this!");
                 var constructor = consters.First();
                 //var constructor = convType.GetConstructor(
                 //    BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic,
