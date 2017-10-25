@@ -25,6 +25,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace Visyn.Threads
@@ -44,6 +45,20 @@ namespace Visyn.Threads
                 throw new UnauthorizedAccessException((!string.IsNullOrEmpty(message) ?
                     $"{caller}: {message}" : 
                     $"{caller}: Not called on associated thread!"));
+        }
+
+        /// <summary>
+        /// Invokes action on the specified dispatcher after delay.
+        /// </summary>
+        /// <param name="dispatcher">The dispatcher to invoke action with.</param>
+        /// <param name="delay">The delay.</param>
+        /// <param name="action">The action.</param>
+        public static void DelayedInvoke(this Dispatcher dispatcher, TimeSpan delay, Action action)
+        {
+            Task.Delay((int) (delay.TotalMilliseconds)).ContinueWith( (a) =>
+            {
+                dispatcher.Invoke(action);
+            });
         }
     }
 }
