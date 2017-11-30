@@ -30,6 +30,39 @@ namespace Visyn.Geometry
     {
         public static Point ToPoint(this IPoint point) => new Point(point.X,point.Y);
         public static PointXY ToPointXY(this IPoint point) => new PointXY(point.X, point.Y);
+
+        public static int CompareTo(this IPoint point, IPoint other)
+        {
+            if (point == null) point = PointXY.Zero;
+            if (other == null) other = PointXY.Zero;
+
+            // ReSharper disable MergeConditionalExpression
+            var dx = point.X - other.X;
+            var dy = point.Y - other.Y;
+            // ReSharper restore MergeConditionalExpression
+            if (dx + dy  > 0) return 1;
+            if (dx + dy  < 0) return -1;
+            if (dx == 0 && dy == 0 ) return 0;
+            // Odd case, dx == -dy  and both non-zero...
+
+            return (dx > dy) ? 1 : -1;
+        }
+
+        public static int CompareTo(this IPoint point, Point other)
+        {
+            if (point == null) point = PointXY.Zero;
+
+            // ReSharper disable MergeConditionalExpression
+            var dx = point.X - other.X;
+            var dy = point.Y - other.Y;
+            // ReSharper restore MergeConditionalExpression
+            if (dx + dy > 0) return 1;
+            if (dx + dy < 0) return -1;
+            if (dx == 0 && dy == 0) return 0;
+
+            // Odd case, dx == -dy  and both non-zero...
+            return (dx > dy) ? 1 : -1;
+        }
     }
 
 }

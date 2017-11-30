@@ -59,7 +59,7 @@ namespace Visyn.Geometry
         private static PointXYZ _zero;
 
 #pragma warning disable 618
-        public static PointXYZ Zero => _zero ?? (_zero = new PointXYZ(0, 0, 0));
+        public new static PointXYZ Zero => _zero ?? (_zero = new PointXYZ(0, 0, 0));
 #pragma warning restore 618
 
         #region Overrides of Object
@@ -67,17 +67,7 @@ namespace Visyn.Geometry
         /// <summary>Compares the current object with another object of the same type.</summary>
         /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />. </returns>
         /// <param name="other">An object to compare with this object.</param>
-        public int CompareTo(IPoint3D other)
-        {
-            var dx = X - other.X;
-            var dy = Y - other.Y;
-            var dz = Z - other.Z;
-            if (dx + dy + dz > 0) return 1;
-            if (dx + dy + dz < 0) return -1;
-            if (dx == 0 && dy == 0 && dz == 0) return 0;
-            // Odd case, dx == dy == dz and both non-zero...
-            return (dx > dy) ? 1 : -1;
-        }
+        public int CompareTo(IPoint3D other) => IPoint3DExtensions.CompareTo(this,other);
 
         /// <summary>Returns a string that represents the current object.</summary>
         /// <returns>A string that represents the current object.</returns>

@@ -98,5 +98,22 @@ namespace Visyn.Geometry
         public static List<object> ToListObject(this IPoint3D point) => new List<object>(new object [] { point.X, point.Y, point.Z });
 
         public static double Distance(this IPoint3D a, IPoint3D b) => Math.Sqrt(Math.Pow(a.X - b.X, 2.0) + Math.Pow(a.Y - b.Y, 2.0) + Math.Pow(a.Z - b.Z, 2.0));
+
+        public static int CompareTo(this IPoint3D point, IPoint3D other)
+        {
+            if (point == null) point = PointXYZ.Zero;
+            if (other == null) other = PointXYZ.Zero;
+            
+            // ReSharper disable MergeConditionalExpression
+            var dx = point.X - other.X;
+            var dy = point.Y - other.Y;
+            var dz = point.Z - other.Z;
+            // ReSharper restore MergeConditionalExpression
+            if (dx + dy + dz > 0) return 1;
+            if (dx + dy + dz < 0) return -1;
+            if (dx == 0 && dy == 0 && dz == 0) return 0;
+            // Odd case, dx == dy == dz and both non-zero...
+            return (dx > dy) ? 1 : -1;
+        }
     }
 }

@@ -22,9 +22,11 @@
 // SOFTWARE.
 #endregion
 
+using System;
+
 namespace Visyn.Geometry
 {
-    public interface IPoint3D : IPoint
+    public interface IPoint3D : IPoint, IComparable<IPoint3D>
     {
         double Z { get; }
     }

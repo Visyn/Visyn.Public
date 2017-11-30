@@ -6,24 +6,12 @@ namespace Visyn.Geometry
 {
     public class PointXYZIo : IPoint3D, IComparable<IPoint3D>, IValue<IPoint3D>, IConvertTo<IPoint3D>
     {
-        protected IPoint3D Point3D { get; private set; }
-        public PointXYZIo() : this(0,0,0) { }
-
-        public PointXYZIo(IPoint3D point3D)
-        {
-            Point3D = point3D;
-        }
-        public PointXYZIo(double x, double y, double z)
-        {
-            Point3D = new PointXYZ(x,y,z);
-        }
-
         #region Implementation of IPoint3D
 
         public double X
         {
             get { return Point3D.X; }
-            set { Point3D = new PointXYZ(value,Point3D.Y,Point3D.Z); } 
+            set { Point3D = new PointXYZ(value, Point3D.Y, Point3D.Z); }
         }
 
         public double Y
@@ -40,11 +28,26 @@ namespace Visyn.Geometry
 
         #endregion
 
+        protected IPoint3D Point3D { get; private set; }
+        public PointXYZIo() : this(0,0,0) { }
+
+        public PointXYZIo(IPoint3D point3D)
+        {
+            Point3D = point3D;
+        }
+
+        public PointXYZIo(double x, double y, double z)
+        {
+            Point3D = new PointXYZ(x,y,z);
+        }
+
+
+
         #region Implementation of IComparable<in IPoint3D>
 
         public int CompareTo(IPoint3D other)
         {
-            IPoint3DExtensions.
+            return IPoint3DExtensions.CompareTo(other);
         }
 
         #endregion

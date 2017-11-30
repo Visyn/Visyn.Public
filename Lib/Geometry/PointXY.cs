@@ -70,40 +70,22 @@ namespace Visyn.Geometry
 
         #region Relational members
 
-        public int CompareTo(PointXY other) => CompareTo(other as IPoint);
+        public int CompareTo(PointXY other) => IPointExtensions.CompareTo(this, other);
 
         /// <summary>Compares the current object with another object of the same type.</summary>
         /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />. </returns>
         /// <param name="other">An object to compare with this object.</param>
-        public int CompareTo(IPoint other)
-        {
-            // ReSharper disable once MergeConditionalExpression
-            var dx = other == null ? X : X - other.X;
-            // ReSharper disable once MergeConditionalExpression
-            var dy = other == null ? Y : Y - other.Y;
-            if (dx + dy > 0) return 1;
-            if (dx + dy < 0) return -1;
-            if (dx == 0 && dy == 0) return 0;
-            // Odd case, dx == dy and both non-zero...
-            return (dx > dy) ? 1 : -1;
-        }
+        public int CompareTo(IPoint other) => IPointExtensions.CompareTo(this, other);
+
+        public int CompareTo(Point other) => IPointExtensions.CompareTo(this, other);
+
         #endregion
 
-        #region Implementation of IComparable<in Point>
+        [Obsolete("Backing field, do not use!")]
+        private static PointXY _zero;
 
-        public int CompareTo(Point other)
-        {
-            // ReSharper disable once MergeConditionalExpression
-            var dx = X - other.X;
-            // ReSharper disable once MergeConditionalExpression
-            var dy = Y - other.Y;
-            if (dx + dy > 0) return 1;
-            if (dx + dy < 0) return -1;
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (dx == 0 && dy == 0) return 0;
-            // Odd case, dx == -dy and both non-zero...
-            return (dx > dy) ? 1 : -1;
-        }
-        #endregion
+#pragma warning disable 618
+        public static PointXY Zero => _zero ?? (_zero = new PointXY(0, 0));
+#pragma warning restore 618
     }
 }
