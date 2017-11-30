@@ -27,10 +27,14 @@ using System.Windows;
 
 namespace Visyn.Geometry
 {
-
     public class PointXYZ : PointXY , IPoint3D, IComparable<IPoint3D>
     {
         public double Z { get; }
+
+        public PointXYZ() : this(0, 0, 0)
+        {
+        }
+    
         public PointXYZ(Point point) : base(point)
         {
             Z = 0.0;
@@ -62,9 +66,11 @@ namespace Visyn.Geometry
         /// <param name="other">An object to compare with this object.</param>
         public int CompareTo(IPoint3D other)
         {
-            var dx = X - other.X;
-            var dy = Y - other.Y;
-            var dz = Z - other.Z;
+            // ReSharper disable MergeConditionalExpression
+            var dx = other == null ? X : (X - other.X);
+            var dy = (other == null) ? Y : (Y - other.Y);
+            var dz = (other == null) ? Z : (Z - other.Z);
+            // ReSharper restore MergeConditionalExpression
             if (dx + dy + dz > 0) return 1;
             if (dx + dy + dz < 0) return -1;
             if (dx == 0 && dy == 0 && dz == 0) return 0;

@@ -28,18 +28,13 @@ using System.Windows;
 namespace Visyn.Geometry
 {
 
-    public class PointXY : IPoint , IComparable<IPoint>
+    public class PointXY : IPoint , IComparable<IPoint>, IComparable<Point>, IComparable<PointXY>
     {
-        public PointXY(Point point)
-        {
-            X = point.X;
-            Y = point.Y;
-        }
-        public PointXY(IPoint point)
-        {
-            X = point.X;
-            Y = point.Y;
-        }
+        public PointXY() : this(0,0) { }
+
+        public PointXY(Point point) : this(point.X,point.Y) { }
+
+        public PointXY(IPoint point) : this(point.X, point.Y) { }
 
         public PointXY(double x, double y)
         {
@@ -67,24 +62,48 @@ namespace Visyn.Geometry
 
         #region Overrides of Object
 
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() => $"{X},{Y}";
+
+        #endregion
+
+        #region Relational members
+
+        public int CompareTo(PointXY other) => CompareTo(other as IPoint);
+
         /// <summary>Compares the current object with another object of the same type.</summary>
         /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />. </returns>
         /// <param name="other">An object to compare with this object.</param>
         public int CompareTo(IPoint other)
         {
-            var dx = X - other.X;
-            var dy = Y - other.Y;
+            // ReSharper disable once MergeConditionalExpression
+            var dx = other == null ? X : X - other.X;
+            // ReSharper disable once MergeConditionalExpression
+            var dy = other == null ? Y : Y - other.Y;
             if (dx + dy > 0) return 1;
             if (dx + dy < 0) return -1;
             if (dx == 0 && dy == 0) return 0;
             // Odd case, dx == dy and both non-zero...
             return (dx > dy) ? 1 : -1;
         }
+        #endregion
 
-        /// <summary>Returns a string that represents the current object.</summary>
-        /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => $"{X},{Y}";
+        #region Implementation of IComparable<in Point>
 
+        public int CompareTo(Point other)
+        {
+            // ReSharper disable once MergeConditionalExpression
+            var dx = X - other.X;
+            // ReSharper disable once MergeConditionalExpression
+            var dy = Y - other.Y;
+            if (dx + dy > 0) return 1;
+            if (dx + dy < 0) return -1;
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (dx == 0 && dy == 0) return 0;
+            // Odd case, dx == -dy and both non-zero...
+            return (dx > dy) ? 1 : -1;
+        }
         #endregion
     }
 }
