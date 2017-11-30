@@ -31,6 +31,7 @@ namespace Visyn.Geometry
     public class PointXYZ : PointXY , IPoint3D, IComparable<IPoint3D>
     {
         public double Z { get; }
+
         public PointXYZ(Point point) : base(point)
         {
             Z = 0.0;
@@ -54,6 +55,13 @@ namespace Visyn.Geometry
         //public static PointXYZ operator -(PointXYZ p1, Vector v1) => new PointXYZ(p1.X - v1.X, p1.Y - v1.Y, p1.Z - v1.Z);
 
         public static PointXYZ operator *(PointXYZ p, double d) => new PointXYZ(p.X*d, p.Y*d, p.Z*d);
+
+        [Obsolete("Backing field, do not use!")]
+        private static PointXYZ _zero;
+
+#pragma warning disable 618
+        public static PointXYZ Zero => _zero ?? (_zero = new PointXYZ(0, 0, 0));
+#pragma warning restore 618
 
         #region Overrides of Object
 

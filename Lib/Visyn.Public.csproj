@@ -84,6 +84,7 @@
     <Compile Include="Format\FormatStrings.cs" />
     <Compile Include="Geometry\IPoint.cs" />
     <Compile Include="Geometry\IPoint3D.cs" />
+    <Compile Include="Geometry\IPoint3DExtensions.cs" />
     <Compile Include="Geometry\PointXYZ.cs" />
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
