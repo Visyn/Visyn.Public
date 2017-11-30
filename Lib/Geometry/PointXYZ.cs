@@ -27,14 +27,10 @@ using System.Windows;
 
 namespace Visyn.Geometry
 {
+
     public class PointXYZ : PointXY , IPoint3D, IComparable<IPoint3D>
     {
         public double Z { get; }
-
-        public PointXYZ() : this(0, 0, 0)
-        {
-        }
-    
         public PointXYZ(Point point) : base(point)
         {
             Z = 0.0;
@@ -59,6 +55,13 @@ namespace Visyn.Geometry
 
         public static PointXYZ operator *(PointXYZ p, double d) => new PointXYZ(p.X*d, p.Y*d, p.Z*d);
 
+        [Obsolete("Backing field, do not use!")]
+        private static PointXYZ _zero;
+
+#pragma warning disable 618
+        public static PointXYZ Zero => _zero ?? (_zero = new PointXYZ(0, 0, 0));
+#pragma warning restore 618
+
         #region Overrides of Object
 
         /// <summary>Compares the current object with another object of the same type.</summary>
@@ -66,11 +69,9 @@ namespace Visyn.Geometry
         /// <param name="other">An object to compare with this object.</param>
         public int CompareTo(IPoint3D other)
         {
-            // ReSharper disable MergeConditionalExpression
-            var dx = other == null ? X : (X - other.X);
-            var dy = (other == null) ? Y : (Y - other.Y);
-            var dz = (other == null) ? Z : (Z - other.Z);
-            // ReSharper restore MergeConditionalExpression
+            var dx = X - other.X;
+            var dy = Y - other.Y;
+            var dz = Z - other.Z;
             if (dx + dy + dz > 0) return 1;
             if (dx + dy + dz < 0) return -1;
             if (dx == 0 && dy == 0 && dz == 0) return 0;

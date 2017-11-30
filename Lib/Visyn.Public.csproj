@@ -87,7 +87,6 @@
     <Compile Include="Geometry\IPointExtensions.cs" />
     <Compile Include="Geometry\PointXYZ.cs" />
     <Compile Include="Geometry\PointXY.cs" />
-    <Compile Include="Geometry\PointXYZIo.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
     <Compile Include="Io\BackgroundOutputDevice.cs" />
@@ -98,7 +97,6 @@
     <Compile Include="Io\IOutputDeviceMultiline.cs" />
     <Compile Include="Io\OutputToCollection.cs" />
     <Compile Include="Io\OutputToCollectionSeverity.cs" />
-    <Compile Include="Types\ValueStore.cs" />
     <Compile Include="Xml\XmlSerializer.cs" />
     <Compile Include="Log\ILogItems.cs" />
     <Compile Include="Log\ISeverityLevel.cs" />
