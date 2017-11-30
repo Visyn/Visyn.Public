@@ -44,7 +44,7 @@ namespace Visyn.Geometry
 
         public int CompareTo(IPoint3D other)
         {
-            
+            IPoint3DExtensions.
         }
 
         #endregion
