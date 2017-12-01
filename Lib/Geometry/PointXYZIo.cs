@@ -4,7 +4,7 @@ using Visyn.Types;
 
 namespace Visyn.Geometry
 {
-    public class PointXYZIo : IPoint3D, IComparable<IPoint3D>, IValue<IPoint3D>, IConvertTo<IPoint3D>
+    public class PointXYZIo : IPoint3D, IComparable<IPoint3D>, IValue<IPoint3D>, IConvertTo<IPoint3D>, IComparable<PointXYZIo>
     {
         #region Implementation of IPoint3D
 
@@ -43,12 +43,12 @@ namespace Visyn.Geometry
 
 
 
-        #region Implementation of IComparable<in IPoint3D>
+        #region Relational members
 
-        public int CompareTo(IPoint3D other)
-        {
-            return IPoint3DExtensions.CompareTo(other);
-        }
+        public int CompareTo(IPoint3D other) => IPoint3DExtensions.CompareTo(this,other);
+        public int CompareTo(PointXYZIo other) => IPoint3DExtensions.CompareTo(this, other);
+
+        public int CompareTo(IPoint other) => IPointExtensions.CompareTo(this, other);
 
         #endregion
 
