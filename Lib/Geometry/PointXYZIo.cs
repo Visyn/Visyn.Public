@@ -23,7 +23,7 @@ namespace Visyn.Geometry
         public double Z
         {
             get { return Point3D.Z; }
-            set { Point3D = new PointXYZ(Point3D.X, Point3D.Y, Point3D.Z); }
+            set { Point3D = new PointXYZ(Point3D.X, Point3D.Y, value); }
         }
 
         #endregion
@@ -65,6 +65,14 @@ namespace Visyn.Geometry
         #region Implementation of IConvertTo<out IPoint3D>
 
         public IPoint3D ConvertTo() => Point3D;
+
+        #endregion
+
+        #region Overrides of Object
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() => $"{X},{Y},{Z}";
 
         #endregion
     }

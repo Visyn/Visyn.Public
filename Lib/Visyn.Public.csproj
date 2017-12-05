@@ -89,6 +89,7 @@
     <Compile Include="Geometry\PointXYZ.cs" />
     <Compile Include="Geometry\PointXY.cs" />
     <Compile Include="Geometry\PointXYZIo.cs" />
+    <Compile Include="Geometry\SizeExtensions.cs" />
     <Compile Include="HTML\HtmlColor.cs" />
     <Compile Include="HTML\IHtmlColor.cs" />
     <Compile Include="Io\BackgroundOutputDevice.cs" />

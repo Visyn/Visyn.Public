@@ -33,6 +33,7 @@ namespace Visyn.Geometry
         public PointXY() : this(0,0) { }
 
         public PointXY(Point point) : this(point.X,point.Y) { }
+        public PointXY(Size size) : this(size.Height, size.Width) { }
 
         public PointXY(IPoint point) : this(point.X, point.Y) { }
 
@@ -42,8 +43,8 @@ namespace Visyn.Geometry
             Y = y;
         }
 
-        public static PointXY operator +(PointXY p1, PointXY p2) => new PointXY(p1.X + p2.X, p1.Y + p2.Y);
-        public static PointXY operator -(PointXY p1, PointXY p2) => new PointXY(p1.X - p2.X, p1.Y - p2.Y);
+        public static PointXY operator +(PointXY p1, IPoint p2) => new PointXY(p1.X + p2.X, p1.Y + p2.Y);
+        public static PointXY operator -(PointXY p1, IPoint p2) => new PointXY(p1.X - p2.X, p1.Y - p2.Y);
 
         public static explicit operator Point(PointXY point) => new Point(point.X, point.Y);
 
@@ -51,7 +52,7 @@ namespace Visyn.Geometry
         public static PointXY operator -(PointXY p1, Vector v1) => new PointXY(p1.X - v1.X, p1.Y - v1.Y);
 
         public static PointXY operator *(PointXY p, double d) => new PointXY(p.X*d, p.Y*d);
-
+        public static PointXY operator /(PointXY p, double d) => new PointXY(p.X / d, p.Y / d);
         #region Implementation of IPoint
 
         public double X { get; }
