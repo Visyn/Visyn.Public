@@ -76,6 +76,22 @@ namespace Visyn.Threads
             }
         }
 
+        #region Implementation of IInvoker
+
+        public void Invoke(Action method)
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(method);
+            }
+            else
+            {
+                method();
+            }
+        }
+
+        #endregion
+
         #endregion
     }
 }
