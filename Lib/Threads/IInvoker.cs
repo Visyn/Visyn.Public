@@ -29,8 +29,8 @@ namespace Visyn.Threads
     public interface IInvoker
     {
         void Invoke(Delegate method, object[] args);
-        void Invoke(Action method);
-        void Invoke<T>(Action<T> method, T param);
+        void Invoke(Action action);
+        void Invoke<T>(Action<T> action, T param);
         void Invoke<T>(EventHandler<T> handler, object sender, T param);
     }
 }

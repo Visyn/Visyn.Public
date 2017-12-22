@@ -24,15 +24,18 @@
 
 using System;
 using System.Windows.Threading;
+using Visyn.JetBrains;
 
 namespace Visyn.Threads
 {
     public class WpfInvoker : IInvoker
     {
+        [NotNull]
         public Dispatcher Dispatcher { get; }
 
         public WpfInvoker(Dispatcher dispatcher)
         {
+            if (dispatcher == null) throw new NullReferenceException($"{nameof(dispatcher)} can not be null!");
             Dispatcher = dispatcher;
         }
 
@@ -40,6 +43,12 @@ namespace Visyn.Threads
 
         public void Invoke(Delegate method, object[] args)
         {
+#if DEBUG
+            if (method == null) throw new NullReferenceException($"{nameof(method)} can not be null!");
+#else
+            if(method == null) return;
+#endif
+            // ReSharper disable once PossibleNullReferenceException
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(method, args);
@@ -52,6 +61,12 @@ namespace Visyn.Threads
 
         public void Invoke<T>(Action<T> method, T param)
         {
+#if DEBUG
+            if (method == null) throw new NullReferenceException($"{nameof(method)} can not be null!");
+#else
+            if(method == null) return;
+#endif
+            // ReSharper disable once PossibleNullReferenceException
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(method, param);
@@ -66,6 +81,7 @@ namespace Visyn.Threads
         public void Invoke<T>(EventHandler<T> handler, object sender, T param)
         {
             if (handler == null) return;
+            // ReSharper disable once PossibleNullReferenceException
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(handler, new object[] { sender, param });
@@ -76,22 +92,42 @@ namespace Visyn.Threads
             }
         }
 
-        #region Implementation of IInvoker
-
-        public void Invoke(Action method)
+        public void Invoke(Action action)
         {
+#if DEBUG
+            if (action == null) throw new NullReferenceException($"{nameof(action)} can not be null!");
+#else
+            if(method == null) return;
+#endif
+            // ReSharper disable once PossibleNullReferenceException
             if (!Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(method);
+                Dispatcher.Invoke(action);
             }
             else
             {
-                method();
+                action();
             }
         }
 
         #endregion
 
-        #endregion
+        public async void BeginInvoke(Action action)
+        {
+#if DEBUG
+            if (action == null) throw new NullReferenceException($"{nameof(action)} can not be null!");
+#else
+            if(method == null) return;
+#endif
+            // ReSharper disable once PossibleNullReferenceException
+            if (!Dispatcher.CheckAccess())
+            {
+                await Dispatcher.BeginInvoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
     }
 }

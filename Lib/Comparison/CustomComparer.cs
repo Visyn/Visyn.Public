@@ -40,6 +40,7 @@ namespace Visyn.Comparison
         }
 
 
+        // ReSharper disable once PossibleNullReferenceException
         public int Compare(T x, T y) => CompareFunction(x, y);
 
         #region Implementation of IComparer
