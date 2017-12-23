@@ -97,7 +97,7 @@ namespace Visyn.Threads
 #if DEBUG
             if (action == null) throw new NullReferenceException($"{nameof(action)} can not be null!");
 #else
-            if(method == null) return;
+            if(action == null) return;
 #endif
             // ReSharper disable once PossibleNullReferenceException
             if (!Dispatcher.CheckAccess())
@@ -110,24 +110,25 @@ namespace Visyn.Threads
             }
         }
 
-        #endregion
-
-        public async void BeginInvoke(Action action)
+        public void BeginInvoke<T>(Action<T> action, T param)
         {
 #if DEBUG
             if (action == null) throw new NullReferenceException($"{nameof(action)} can not be null!");
 #else
-            if(method == null) return;
+            if(action == null) return;
 #endif
-            // ReSharper disable once PossibleNullReferenceException
-            if (!Dispatcher.CheckAccess())
-            {
-                await Dispatcher.BeginInvoke(action);
-            }
-            else
-            {
-                action();
-            }
+            Dispatcher.BeginInvoke(action,new object[] {param});
         }
+
+        public void BeginInvoke(Action action)
+        {
+#if DEBUG
+            if (action == null) throw new NullReferenceException($"{nameof(action)} can not be null!");
+#else
+            if(action == null) return;
+#endif
+            Dispatcher.BeginInvoke(action);
+        }
+        #endregion
     }
 }

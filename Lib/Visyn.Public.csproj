@@ -66,6 +66,7 @@
     <Compile Include="Criteria\ComparableCriteria.cs" />
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\StringCriteria.cs" />
+    <Compile Include="Device\DeviceAddedRemovedEventArgs.cs" />
     <Compile Include="Exceptions\BadUsageException.cs" />
     <Compile Include="Exceptions\ConvertException.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />

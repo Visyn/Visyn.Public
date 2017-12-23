@@ -32,5 +32,7 @@ namespace Visyn.Threads
         void Invoke(Action action);
         void Invoke<T>(Action<T> action, T param);
         void Invoke<T>(EventHandler<T> handler, object sender, T param);
+        void BeginInvoke(Action action);
+        void BeginInvoke<T>(Action<T> action, T param);
     }
 }
