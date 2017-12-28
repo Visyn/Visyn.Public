@@ -49,10 +49,11 @@ namespace Visyn.Comparison
         public int Compare(object x, object y)
         {
             if (x is T && y is T)
+                // ReSharper disable once PossibleNullReferenceException
                 return CompareFunction((T) x, (T) y);
 
-            throw new NotImplementedException($"The following has not been tested!!!");
-            //return (Comparer<T>)
+//            throw new NotImplementedException($"The following has not been tested!!!");
+          
             var comparableX = x as IComparable;
             if (comparableX != null) return comparableX.CompareTo(y);
             var comparableY = y as IComparable;
