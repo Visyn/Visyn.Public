@@ -52,8 +52,12 @@ namespace Visyn.Test.Xml
         // These will be ignored
         [NonSerialized()]
 #pragma warning disable 169
+#pragma warning disable 414
+        // ReSharper disable once InconsistentNaming
         private int willBeIgnored1 = 1;
+        // ReSharper disable once InconsistentNaming
         private int willBeIgnored2 = 1;
+#pragma warning restore 414
 #pragma warning restore 169
         public XTestClassWithArray(int arrayCount)
         {
