@@ -23,6 +23,7 @@
 #endregion
 
 using System.Reflection;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -31,9 +32,10 @@ using System.Reflection;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("Visyn.Public")]
 [assembly: AssemblyCompany("Visyn")]
-[assembly: AssemblyCopyright("Copyright © 2015-2017")]
+[assembly: AssemblyCopyright("Copyright © 2015-2018")]
 [assembly: AssemblyTrademark("Visyn")]
 [assembly: AssemblyCulture("")]
+[assembly: NeutralResourcesLanguage("en")]
 #if DEBUG
 [assembly: AssemblyConfiguration("DEBUG")]
 #else
