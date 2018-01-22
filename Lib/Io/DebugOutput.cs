@@ -25,6 +25,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using Visyn.JetBrains;
 
 namespace Visyn.Io
 {
@@ -52,6 +53,7 @@ namespace Visyn.Io
         {
 #if DEBUG
             Debug.WriteLine(_builder?.Length > 0 ? _builder.Append(line).ToString() : line);
+            _builder.Clear();
 #endif
         }
 
@@ -65,6 +67,7 @@ namespace Visyn.Io
         #endregion
 
 #if DEBUG
+        [NotNull]
         private readonly StringBuilder _builder;
 
         public DebugOutput()

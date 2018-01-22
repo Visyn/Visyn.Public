@@ -24,15 +24,18 @@
 
 namespace Visyn.Device
 {
-    public class DeviceAddedRemovedEventArgs
+    public class DeviceAddedRemovedEventArgs<T>
     {
         public string Name { get; }
         public bool Added { get; }
 
-        public DeviceAddedRemovedEventArgs(string name, bool added)
+        public T DeviceInfo { get; }
+
+        public DeviceAddedRemovedEventArgs(string name, bool added, T deviceInfo)
         {
             Name = name;
             Added = added;
+            DeviceInfo = deviceInfo;
         }
     }
 }
