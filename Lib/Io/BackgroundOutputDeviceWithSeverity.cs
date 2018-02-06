@@ -117,9 +117,9 @@ namespace Visyn.Io
 
         #region Implementation of IOutputDevice<SeverityLevel>
 
-        public void Write(string text, SeverityLevel severity)
+        public void Write(string text, SeverityLevel level)
         {
-            Add(() => new MessageWithSeverityLevel(text,severity));
+            Add(() => new MessageWithSeverityLevel(text,level));
         }
 
         public void WriteLine(string line, SeverityLevel severity)
@@ -127,9 +127,9 @@ namespace Visyn.Io
             Add(() => new MessageWithSeverityLevel(line, severity));
         }
 
-        public void Write(Func<string> func, SeverityLevel severity)
+        public void Write(Func<string> func, SeverityLevel level)
         {
-            Add(() => new MessageWithSeverityLevel(func.Invoke(), severity));
+            Add(() => new MessageWithSeverityLevel(func.Invoke(), level));
         }
 
         #endregion
