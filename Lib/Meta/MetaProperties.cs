@@ -32,10 +32,15 @@ namespace Visyn.Meta
 {
     public class MetaProperties : IReadOnlyDictionary<string,object>, IEnumerable<KeyValuePair<string, object>> 
     {
-        protected readonly Dictionary<string, object> Properties;
+        private readonly Dictionary<string, object> Properties;
 
         /// <exclude />
         public string Name => (string)Properties[nameof(Name)];
+
+        public MetaProperties() : this("")
+        {
+
+        }
         public MetaProperties(string newName)
         {
             Properties = new Dictionary<string, object> { {nameof(Name),newName} };
@@ -44,7 +49,7 @@ namespace Visyn.Meta
         public MetaProperties(IEnumerable<KeyValuePair<string, object>> properties)
         {
             Properties = new Dictionary<string, object>();
-            foreach(KeyValuePair<string, object> prop in properties)
+            foreach(var prop in properties)
             {
                 Properties.Add(prop.Key,prop.Value);
             }
