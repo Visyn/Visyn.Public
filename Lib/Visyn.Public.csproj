@@ -19,7 +19,7 @@
     <AssemblyVersion>2.1.37.66</AssemblyVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationVersion>2.1.82.117</ApplicationVersion>
+    <ApplicationVersion>2.1.85.120</ApplicationVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,10 +68,7 @@
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\StringCriteria.cs" />
     <Compile Include="Device\DeviceAddedRemovedEventArgs.cs" />
-    <Compile Include="Device\IAsciiDevice.cs" />
-    <Compile Include="Device\IBinaryDevice.cs" />
     <Compile Include="Device\IComPort.cs" />
-    <Compile Include="Device\IDevice.cs" />
     <Compile Include="Exceptions\BadUsageException.cs" />
     <Compile Include="Exceptions\ConvertException.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />
