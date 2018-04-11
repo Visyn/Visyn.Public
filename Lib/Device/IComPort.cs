@@ -26,12 +26,24 @@ using Visyn.JetBrains;
 
 namespace Visyn.Device
 {
+    /// <summary>
+    /// Interface IComPort
+    /// </summary>
     public interface IComPort
     {
-        [NotNull]
-        string PortName { get; }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         [NotNull]
         string Name { get; }
+
+        /// <summary>
+        /// Gets the name of the serial port ( i.e. 'COM3' ).
+        /// </summary>
+        /// <value>The name of the serial port ( i.e. 'COM3' ).</value>
+        [NotNull]
+        string PortName { get; }
     }
 }

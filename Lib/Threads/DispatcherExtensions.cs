@@ -53,9 +53,9 @@ namespace Visyn.Threads
         /// <param name="dispatcher">The dispatcher to invoke action with.</param>
         /// <param name="delay">The delay.</param>
         /// <param name="action">The action.</param>
-        public static void DelayedInvoke(this Dispatcher dispatcher, TimeSpan delay, Action action)
+        public static async void DelayedInvoke(this Dispatcher dispatcher, TimeSpan delay, Action action)
         {
-            Task.Delay((int) (delay.TotalMilliseconds)).ContinueWith( (a) =>
+            await Task.Delay((int) (delay.TotalMilliseconds)).ContinueWith( (a) =>
             {
                 dispatcher.Invoke(action);
             });
