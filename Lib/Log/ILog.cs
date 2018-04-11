@@ -26,12 +26,32 @@ using System.Collections;
 
 namespace Visyn.Log
 {
+    /// <summary>
+    /// Interface ILog
+    /// </summary>
+    /// <typeparam name="TEventLevel">The type of the t event level.</typeparam>
     public interface ILog<TEventLevel>
     {
+        /// <summary>
+        /// Gets or sets the minimum log level to log an event.
+        /// </summary>
+        /// <value>The log level.</value>
         TEventLevel LogLevel { get; set; }
-        
 
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="source">The message source.</param>
+        /// <param name="message">The message text.</param>
+        /// <param name="level">The message event level.</param>
         void Log(object source, string message, TEventLevel level);
+        /// <summary>
+        /// Logs the specified items.
+        /// </summary>
+        /// <param name="source">The message source.</param>
+        /// <param name="logItems">A collection of items to log.</param>
+        /// <param name="level">The message event level.</param>
+        /// <param name="prefix">The message prefix to prepend to all log items.</param>
         void Log(object source, ICollection logItems, TEventLevel level, string prefix);
     }
 }

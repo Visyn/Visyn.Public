@@ -24,14 +24,23 @@
 
 namespace Visyn.VisynApp
 {
+
     /// <summary>
-    /// Interface IVisynAppSettings
+    /// Interface Visyn Application Settings
     /// </summary>
     public interface IVisynAppSettings
     {
-        //
+
+        /// <summary>
+        /// Gets a value indicating whether the settings are valid.
+        /// </summary>
+        /// <value><c>true</c> if [are valid]; otherwise, <c>false</c>.</value>
         bool AreValid { get; }
 
+        /// <summary>
+        /// Initializes the settings instance to the default settings.
+        /// </summary>
+        /// <param name="context">The context.</param>
         void InitializeDefaultSettings(object context);
     }
 }
