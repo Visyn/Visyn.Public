@@ -25,11 +25,12 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using Visyn.Exceptions;
 using Visyn.JetBrains;
 
 namespace Visyn.Io
 {
-    public class DebugOutput : IOutputDevice
+    public class DebugOutput : IOutputDevice, IExceptionHandler
     {
         #region Implementation of IOutputDevice
 
@@ -75,5 +76,10 @@ namespace Visyn.Io
             _builder = new StringBuilder(1024);
         }
 #endif
+        public bool HandleException(object sender, Exception exception)
+        {
+            WriteLine($"{exception.GetType().Name}: {exception.Message}");
+            return true;
+        }
     }
 }

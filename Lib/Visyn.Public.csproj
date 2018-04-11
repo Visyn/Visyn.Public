@@ -19,7 +19,7 @@
     <AssemblyVersion>2.1.37.66</AssemblyVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationVersion>2.1.94.157</ApplicationVersion>
+    <ApplicationVersion>2.1.101.3</ApplicationVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -103,6 +103,8 @@
     <Compile Include="Io\IOutputDeviceMultiline.cs" />
     <Compile Include="Io\OutputToCollection.cs" />
     <Compile Include="Io\OutputToCollectionSeverity.cs" />
+    <Compile Include="Reflection\TypeExtensions.cs" />
+    <Compile Include="Types\LazyDisposable.cs" />
     <Compile Include="Xml\XmlSerializer.cs" />
     <Compile Include="Log\ILogItems.cs" />
     <Compile Include="Log\ISeverityLevel.cs" />

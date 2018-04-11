@@ -153,7 +153,7 @@ namespace Visyn.Threads
 #if true
                     if (RateLimitTimeSpan.TotalMilliseconds > 0)
                     {
-                        await Task.Delay((int)RateLimitTimeSpan.TotalMilliseconds, CancelTokenSource.Token);
+                        await Task.Delay((int) RateLimitTimeSpan.TotalMilliseconds, CancelTokenSource.Token);
                     }
 #else
                     var start = DateTime.Now;
@@ -169,6 +169,9 @@ namespace Visyn.Threads
                         RateLimitTimeSpan = TimeSpan.FromMilliseconds(2);
                     }
 #endif
+                }
+                catch (ObjectDisposedException)
+                {   // Don't handle this exception, only causes more errors
                 }
                 catch (Exception exception)
                 {
