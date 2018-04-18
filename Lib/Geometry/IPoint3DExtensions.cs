@@ -97,6 +97,13 @@ namespace Visyn.Geometry
         public static List<double> ToListDouble(this IPoint3D point) => new List<double>(new[] {point.X, point.Y, point.Z});
         public static List<object> ToListObject(this IPoint3D point) => new List<object>(new object [] { point.X, point.Y, point.Z });
 
+        /// <summary>
+        /// Distances between the specified points in 3D space.
+        /// Distance is calculated as Sqrt((ax-bx)^2+(ay-by)^2+(az-bz)^2) and is always >= 0
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point</param>
+        /// <returns>System.Double positive representation of distance.</returns>
         public static double Distance(this IPoint3D a, IPoint3D b) => Math.Sqrt(Math.Pow(a.X - b.X, 2.0) + Math.Pow(a.Y - b.Y, 2.0) + Math.Pow(a.Z - b.Z, 2.0));
 
         public static int CompareTo(this IPoint3D point, IPoint3D other)

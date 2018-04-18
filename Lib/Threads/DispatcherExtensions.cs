@@ -60,5 +60,34 @@ namespace Visyn.Threads
                 dispatcher.Invoke(action);
             });
         }
+
+        /// <summary>
+        /// Invokes action on the specified dispatcher after delay.
+        /// </summary>
+        /// <param name="dispatcher">The dispatcher to invoke action with.</param>
+        /// <param name="delay">The delay.</param>
+        /// <param name="action">The action.</param>
+        public static async void DelayedBeginInvoke(this Dispatcher dispatcher, TimeSpan delay, Action action)
+        {
+            await Task.Delay((int)(delay.TotalMilliseconds)).ContinueWith(async (a) =>
+            {
+                await dispatcher.BeginInvoke(action);
+            });
+        }
+
+        /// <summary>
+        /// Invokes the specified action on the UI thread.
+        /// </summary>
+        /// <param name="dispatcher">The UI thread dispatcher.</param>
+        /// <param name="action">The action.</param>
+        public static void InvokeOnUI(this Dispatcher dispatcher, Action action)
+        {
+            if (action == null) return;
+            dispatcher.AssertAccess();
+            if (dispatcher.CheckAccess())
+                action();
+            else
+                dispatcher.BeginInvoke(action);
+        }
     }
 }
