@@ -23,24 +23,49 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 
 namespace Visyn.Types.Time
 {
     public static class DateTimeExtensions
-    { 
-        public static DateTime Floor(this DateTime date, TimeSpan interval) => date.AddTicks(-(date.Ticks % interval.Ticks));
-
+    {
         public static DateTime Ceiling(this DateTime date, TimeSpan interval)
         {
             var overflow = date.Ticks % interval.Ticks;
-
             return overflow == 0 ? date : date.AddTicks(interval.Ticks - overflow);
+        }
+        public static DateTime Floor(this DateTime date, TimeSpan interval) 
+            => date.AddTicks(-(date.Ticks % interval.Ticks));
+
+        public static DateTime Max(this DateTime date, DateTime other)
+            => date.Ticks > other.Ticks ? date : other;
+
+        public static DateTime Min(this DateTime date, DateTime other)
+            => date.Ticks < other.Ticks ? date : other;
+
+        public static DateTime Max(this IEnumerable<DateTime> dates)
+        {
+            var max = DateTime.MinValue;
+            foreach (var date in dates)
+            {
+                if (date.Ticks > max.Ticks) max = date;
+            }
+            return max;
+        }
+
+        public static DateTime Min(this IEnumerable<DateTime> dates)
+        {
+            var min = DateTime.MaxValue;
+            foreach (var date in dates)
+            {
+                if (date.Ticks < min.Ticks) min = date;
+            }
+            return min;
         }
 
         public static DateTime Round(this DateTime date, TimeSpan interval)
         {
             var halfIntervelTicks = (interval.Ticks + 1) >> 1;
-
             return date.AddTicks(halfIntervelTicks - ((date.Ticks + halfIntervelTicks) % interval.Ticks));
         }
 
