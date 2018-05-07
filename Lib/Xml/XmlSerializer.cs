@@ -60,6 +60,7 @@ namespace Visyn.Xml
 
                 serializer.Serialize(writer, data);
                 InvokeDecoratedMethods<OnSerializedAttribute>(data);
+                InvokeDecoratedMethods<PortableOnSerializedAttribute>(data);
             }
             catch (Exception exc)
             {

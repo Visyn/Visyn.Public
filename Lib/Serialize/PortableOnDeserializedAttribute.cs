@@ -1,4 +1,4 @@
-#region Copyright (c) 2015-2018 Visyn
+ï»¿#region Copyright (c) 2015-2018 Visyn
 // The MIT License(MIT)
 // 
 // Copyright (c) 2015-2018 Visyn
@@ -22,34 +22,19 @@
 // SOFTWARE.
 #endregion
 
-using System.Reflection;
-using System.Resources;
+using System;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Visyn.Public")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyProduct("Visyn.Public")]
-[assembly: AssemblyCompany("Visyn")]
-[assembly: AssemblyCopyright("Copyright © 2015-2018")]
-[assembly: AssemblyTrademark("Visyn")]
-[assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en")]
-#if DEBUG
-[assembly: AssemblyConfiguration("DEBUG")]
-#else
-[assembly: AssemblyConfiguration("RELEASE")]
-#endif
+namespace Visyn.Serialize
+{
+    /// <summary>When applied to a method, specifies that the method is called immediately after deserialization of an object
+    /// in an object graph. The order of deserialization relative to other objects in the graph is non-deterministic.</summary>
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    public sealed class PortableOnDeserializedAttribute : Attribute
+    {
+        /// <summary>Initializes a new instance of the <see cref="T:System.Runtime.Serialization.OnDeserializedAttribute" /> class. </summary>
+        public PortableOnDeserializedAttribute()
+        {
+        }
+    }
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion("2.1.123.233")]
-[assembly: AssemblyFileVersion("2.1.123.233")]
+}
