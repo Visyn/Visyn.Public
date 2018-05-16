@@ -208,7 +208,7 @@ namespace Visyn.Threads
 
         public CancellationToken CancelToken { get; private set; }
 
-        protected abstract void ProcessData();
+        protected abstract int ProcessData();
 
         public virtual void StopTask()
         {

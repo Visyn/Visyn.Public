@@ -47,14 +47,14 @@ namespace Visyn.Io
 
         #region Overrides of BackgroundOutputDeviceMultiline
 
-        protected override void ProcessData()
+        protected override int ProcessData()
         {
             var count = Count;
 
             if (count <= 0)
             {
                 Task.Delay(DelayIntervalMs);
-                return;
+                return 0;
             }
             if (count == 1)
             {
@@ -94,23 +94,38 @@ namespace Visyn.Io
 
 
 
-        private void ProcessItem()
+        private int ProcessItem()
         {
             var item = DequeueItem();
-            var text = item as string;
-            if (text != null) ProcessString(text);
-            else if (item is MessageWithSeverityLevel)
+          //  var text = item as string;
+            if (item is string)
             {
-                ProcessMessageWithSeverity((MessageWithSeverityLevel) item);
+                return ProcessString((string)item);
             }
+            if (item is MessageWithSeverityLevel)
+            {
+                return ProcessMessageWithSeverity((MessageWithSeverityLevel)item);
+            }
+            var enumerable = item as IEnumerable<string>;
+            if(enumerable != null)
+            {
+                if (enumerable is ICollection<string>) return ProcessStrings((ICollection<string>)enumerable);
+                else return ProcessStrings(new List<string>(enumerable));
+            }
+#if DEBUG
+            throw new ArrayTypeMismatchException($"{nameof(BackgroundOutputDeviceWithSeverity)}.{nameof(ProcessItem)} type {item.GetType().Name} not suported!");
+#else
+             return 0;
+#endif
         }
 
-        private void ProcessMessageWithSeverity(MessageWithSeverityLevel item)
+        private int ProcessMessageWithSeverity(MessageWithSeverityLevel item)
         {
             var action = new Action(() =>
             	_backgroundDeviceWithSeverity.Write(item));
             if (Dispatcher != null) Dispatcher.BeginInvoke(action);
             else action();
+            return 1;
         }
 
         #endregion

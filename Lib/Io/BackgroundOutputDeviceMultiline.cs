@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -49,20 +50,19 @@ namespace Visyn.Io
 
         #region Overrides of BackgroundOutputDevice
 
-        protected override void ProcessData()
+        protected override int ProcessData()
         {
             var count = Count;
 
             if (count <= 0)
             {
                 Task.Delay(DelayIntervalMs);
-                return;
+                return 0;
             }
             if (count == 1)
             {
                 var text = DequeueText();
-                ProcessString(text);
-                return;
+                return ProcessString(text);
             }
             // count > 1
             var items = new List<string>(count);
@@ -75,21 +75,21 @@ namespace Visyn.Io
 
                 if (index++ > 100) break;
             }
-            if (items.Count <= 0) return;
-            if (items.Count == 1) ProcessString(items[0]);
-            else ProcessStrings(items);
+            if (items.Count <= 0) return 0;
+            if (items.Count == 1) return ProcessString(items[0]);
+            else return ProcessStrings(items);
         }
 
         #endregion
 
-        protected int ProcessStrings(List<string> items)
+        protected int ProcessStrings(ICollection<string> items)
         {
             if (items == null) return 0;
             var count = items.Count;
             switch (count)
             {
                 case 0: return 0;
-                case 1: return ProcessString(items[0]);
+                case 1: return ProcessString(items.First());
                 default:
                     var action = _multLineOutput != null ?
                         new Action(() => _multLineOutput.Write(items)) :
@@ -101,7 +101,7 @@ namespace Visyn.Io
                     }
                     else
                     {
-                        action();
+                        action.Invoke();
                     }
                     return count;
             }
@@ -113,8 +113,7 @@ namespace Visyn.Io
         public void Write(IEnumerable<string> lines)
         {
             if (lines == null) return;
-            foreach (var line in lines)
-                WriteLine(line);
+            Add(() => lines);
         }
 
         #endregion

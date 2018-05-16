@@ -43,25 +43,13 @@ namespace Visyn.Io
         }
 
 
-        public void Write(T text)
-        {
-            _collection.Add(text);
-        }
+        public void Write(T text) => _collection.Add(text);
 
-        public void WriteLine(T line)
-        {
-            _collection.Add(line);
-        }
+        public void WriteLine(T line) => _collection.Add(line);
 
-        public void Write(Func<T> func)
-        {
-            _collection.Add(func());
-        }
+        public void Write(Func<T> func) => _collection.Add(func());
 
-        public void Write(IEnumerable<T> lines)
-        {
-            AddRangeFunction(lines);
-        }
+        public void Write(IEnumerable<T> lines) => AddRangeFunction.Invoke(lines);
 
         private Action<IEnumerable<T>> AddRangeFunction { get; }
         private void AddRange(IEnumerable<T> lines)
@@ -73,6 +61,7 @@ namespace Visyn.Io
 
         private void addRangeToList(IEnumerable<T> lines)
         {
+            if (lines == null) return;
             ((List<T>)_collection).AddRange(lines);
         }
 
@@ -90,21 +79,12 @@ namespace Visyn.Io
             _collection.Add(instance);
         }
 
-        public void Write(Func<string> func)
-        {
-            WriteLine(func());
-        }
+        public void Write(Func<string> func) => WriteLine(func());
 
         public void Write(IEnumerable<string> lines)
         {
-            IEnumerable<T> instances;
-            if (typeof(string) is T)
-            {
-                instances = lines.Select(line => line as T);
-            }
-            else
-                instances = lines.Select(line => (T) Activator.CreateInstance(typeof(T), line));
-            AddRangeFunction(instances);
+            var instances = lines as IEnumerable<T> ?? lines.Select(line => (T)Activator.CreateInstance(typeof(T), line));
+            AddRangeFunction.Invoke(instances);
         }
 
         #endregion
