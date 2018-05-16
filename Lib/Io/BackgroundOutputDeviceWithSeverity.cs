@@ -47,24 +47,24 @@ namespace Visyn.Io
 
         #region Overrides of BackgroundOutputDeviceMultiline
 
-        protected override void ProcessData()
+        protected override int ProcessData()
         {
             var count = Count;
 
             if (count <= 0)
             {
                 Task.Delay(DelayIntervalMs);
-                return;
+                return 0;
             }
             if (count == 1)
             {
-                ProcessItem();
-                return;
+                return ProcessItem();
             }
             // count > 1
             var items = new List<string>(count);
             var index = 0;
 
+            var itemsProcessed = 0;
             while (count-- > 0)
             {
                 if(items == null) items = new List<string>(count);
@@ -80,37 +80,53 @@ namespace Visyn.Io
                     {
                         if (items.Count > 0)
                         {
-                            ProcessStrings(items);
+                            itemsProcessed += ProcessStrings(items);
                             items = null;
                         }
-                        ProcessItem();
+                        itemsProcessed += ProcessItem();
                     }
                 }
 
                 if (index++ > 100) break;
             }
-            if (items?.Count > 0) ProcessStrings(items);
+            if (items?.Count > 0) itemsProcessed += ProcessStrings(items);
+            return itemsProcessed;
         }
 
 
 
-        private void ProcessItem()
+        private int ProcessItem()
         {
             var item = DequeueItem();
-            var text = item as string;
-            if (text != null) ProcessString(text);
-            else if (item is MessageWithSeverityLevel)
+
+            if (item is string)
             {
-                ProcessMessageWithSeverity((MessageWithSeverityLevel) item);
+                return ProcessString((string)item);
             }
+            if (item is MessageWithSeverityLevel)
+            {
+                return ProcessMessageWithSeverity((MessageWithSeverityLevel)item);
+            }
+            var enumerable = item as IEnumerable<string>;
+            if(enumerable != null)
+            {
+                if (enumerable is ICollection<string>) return ProcessStrings((ICollection<string>)enumerable);
+                else return ProcessStrings(new List<string>(enumerable));
+            }
+#if DEBUG
+            throw new ArrayTypeMismatchException($"{nameof(BackgroundOutputDeviceWithSeverity)}.{nameof(ProcessItem)} type {item.GetType().Name} not suported!");
+#else
+             return 0;
+#endif
         }
 
-        private void ProcessMessageWithSeverity(MessageWithSeverityLevel item)
+        private int ProcessMessageWithSeverity(MessageWithSeverityLevel item)
         {
             var action = new Action(() =>
             	_backgroundDeviceWithSeverity.Write(item));
             if (Dispatcher != null) Dispatcher.BeginInvoke(action);
             else action();
+            return 1;
         }
 
         #endregion

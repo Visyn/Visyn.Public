@@ -134,12 +134,12 @@ namespace Visyn.Io
             if (func == null) return;
             Add(_process != null ? (() => _process(func.Invoke())) : func);//func);
         }
-        
-        #endregion
+
+        #endregion Implementation of IOutputDevice
 
         #region Overrides of ProcessQueuedDataTask<Func<object>>
 
-        protected override void ProcessData()
+        protected override int ProcessData()
         {
             var count = Count;
             if (count > 0)
@@ -151,14 +151,15 @@ namespace Visyn.Io
                 while (--count > 0)
                 {
                     output += DequeueText();
-                    if (index++ > 10) break; ;
+                    if (index++ > 10) break;
                 }
-                ProcessString(output);
+                return ProcessString(output);
             }
             else
             {
                 Task.Delay(DelayIntervalMs);
             }
+            return 0;
         }
 
         #endregion
