@@ -17,10 +17,10 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <AssemblyVersion>2.1.136.268</AssemblyVersion>
+    <AssemblyVersion>2.1.136.273</AssemblyVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationVersion>2.1.136.268</ApplicationVersion>
+    <ApplicationVersion>2.1.136.273</ApplicationVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
