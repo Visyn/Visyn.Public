@@ -40,7 +40,7 @@ namespace Visyn.Serialize.Converters
         /// Convert to a type given a decimal separator
         /// </summary>
         /// <param name="T">type we are converting</param>
-        /// <param name="decimalSeparator">Separator</param>
+        /// <param name="decimalSeparator">Delimiter</param>
         protected CultureConverter(string decimalSeparator)// : base(T)
         {
             Culture = ConverterFactory.CreateCulture(decimalSeparator);

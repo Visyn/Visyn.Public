@@ -22,13 +22,33 @@
 // SOFTWARE.
 #endregion
 
+using System;
+
 namespace Visyn.Types
 {
+    /// <summary>
+    /// Interface IFieldConverter
+    /// </summary>
+    /// <seealso cref="Visyn.Types.IType" />
     public interface IFieldConverter : IType
     {
+        /// <summary>
+        /// Gets a value indicating whether [custom null handling].
+        /// </summary>
+        /// <value><c>true</c> if [custom null handling]; otherwise, <c>false</c>.</value>
         bool CustomNullHandling { get; }
 
+        /// <summary>
+        /// Fields to string.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <returns>System.String.</returns>
         string FieldToString(object from);
+        /// <summary>
+        /// Strings to field.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>System.Object.</returns>
         object StringToField(string text);
     }
 }

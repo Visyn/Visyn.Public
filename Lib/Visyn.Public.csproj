@@ -106,6 +106,7 @@
     <Compile Include="Io\OutputToCollectionSeverity.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Serialize\PortableOnSerializedAttribute.cs" />
+    <Compile Include="Types\IFieldConverterHeader.cs" />
     <Compile Include="Types\LazyDisposable.cs" />
     <Compile Include="Xml\XmlSerializer.cs" />
     <Compile Include="Log\ILogItems.cs" />
