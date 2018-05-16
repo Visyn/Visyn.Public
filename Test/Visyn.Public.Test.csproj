@@ -12,9 +12,10 @@
     <AssemblyName>Visyn.Public.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationVersion>2.1.83.27</ApplicationVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationVersion>2.1.136.28</ApplicationVersion>
+    <AssemblyVersion>2.1.136.28</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
