@@ -24,39 +24,48 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Visyn.Exceptions;
+using Visyn.Io;
 using Visyn.Serialize.Converters;
 using Visyn.Types;
 
 namespace Visyn.Serialize
 {
-    /// <summary>Indicates the <see cref="ConverterKind"/> used for read/write operations.</summary>
-    /// <remarks>See the <a href="http://www.filehelpers.net/mustread">Complete attributes list</a> for more information and examples of each one.</remarks>
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class FieldConverterAttribute : Attribute
     {
+        public string Delimiter
+        {
+            get { return (Converter as IFieldConverterHeader)?.Delimiter; }
+            set
+            {
+                var fieldConverter = Converter as IFieldConverterHeader;
+                if (fieldConverter != null) fieldConverter.Delimiter = value;
+            }
+        }
         #region "  Constructors  "
 
         /// <summary>Indicates the <see cref="ConverterKind"/> used for read/write operations. </summary>
         /// <param name="converter">The <see cref="ConverterKind"/> used for the transformations.</param>
         public FieldConverterAttribute(ConverterKind converter)
-            : this(converter, new string[] {}) {}
+            : this(converter, new object[] {}) {}
 
         /// <summary>Indicates the <see cref="ConverterKind"/> used for read/write operations. </summary>
         /// <param name="converter">The <see cref="ConverterKind"/> used for the transformations.</param>
         /// <param name="arg1">The first param passed directly to the Converter Constructor.</param>
         public FieldConverterAttribute(ConverterKind converter, string arg1)
-            : this(converter, new string[] {arg1}) {}
+            : this(converter, new object[] {arg1}) {}
 
         /// <summary>Indicates the <see cref="ConverterKind"/> used for read/write operations. </summary>
         /// <param name="converter">The <see cref="ConverterKind"/> used for the transformations.</param>
         /// <param name="arg1">The first param passed directly to the Converter Constructor.</param>
         /// <param name="arg2">The second param passed directly to the Converter Constructor.</param>
         public FieldConverterAttribute(ConverterKind converter, string arg1, string arg2)
-            : this(converter, new string[] {arg1, arg2}) {}
+            : this(converter, new object[] {arg1, arg2}) {}
 
         /// <summary>Indicates the <see cref="ConverterKind"/> used for read/write operations. </summary>
         /// <param name="converter">The <see cref="ConverterKind"/> used for the transformations.</param>
@@ -64,7 +73,7 @@ namespace Visyn.Serialize
         /// <param name="arg2">The second param passed directly to the Converter Constructor.</param>
         /// <param name="arg3">The third param passed directly to the Converter Constructor.</param>
         public FieldConverterAttribute(ConverterKind converter, string arg1, string arg2, string arg3)
-            : this(converter, new string[] {arg1, arg2, arg3}) {}
+            : this(converter, new object[] {arg1, arg2, arg3}) {}
 
 
         /// <summary>
@@ -72,7 +81,7 @@ namespace Visyn.Serialize
         /// </summary>
         /// <param name="converter">The <see cref="ConverterKind"/> used for the transformations.</param>
         /// <param name="args">An array of parameters passed directly to the Converter</param>
-        private FieldConverterAttribute(ConverterKind converter, params string[] args)
+        private FieldConverterAttribute(ConverterKind converter,params object[] args)
         {
             Kind = converter;
 
@@ -142,7 +151,7 @@ namespace Visyn.Serialize
                 default:
                     throw new BadUsageException($"Converter '{ converter}' not found, you must specify a valid converter.");
             }
-
+       
             CreateConverter(convType, args);
         }
 
@@ -194,10 +203,15 @@ namespace Visyn.Serialize
         public ConverterKind Kind { get; private set; }
 
         #endregion
-         
+
         #region "  CreateConverter  "
 
-        private void CreateConverter(Type convType, object[] args)
+#if DEBUG
+        private const string _DefaultDelimiter = "@";
+#else
+        private const string _DefaultDelimiter = ",";
+#endif
+        private void CreateConverter(Type convType, object[] args, string delimiter= _DefaultDelimiter)
         {
             if (typeof (IFieldConverter).GetTypeInfo().IsAssignableFrom(convType.GetTypeInfo()))
             {
@@ -220,6 +234,8 @@ namespace Visyn.Serialize
                 try
                 {
                     Converter = (IFieldConverter)constructor.Invoke(args) ;
+                    var fieldHeader = Converter as IFieldConverterHeader;
+                    if (fieldHeader != null) fieldHeader.Delimiter = delimiter;
                 }
                 catch (TargetInvocationException ex)
                 {
@@ -233,9 +249,9 @@ namespace Visyn.Serialize
                 throw new BadUsageException("The custom converter must inherit from ConverterBase");
         }
 
-        #endregion
+#endregion
 
-        #region "  ArgsToTypes  "
+#region "  ArgsToTypes  "
 
         private static IList<Type> ArgsToTypes(IEnumerable<object> args)
         {
@@ -257,10 +273,11 @@ namespace Visyn.Serialize
 
         private static string DisplayType(object o) => o?.GetType().Name ?? "Object";
 
-        #endregion
+#endregion
 
         public void ValidateTypes(FieldInfo fi)
         {
+            Debug.Assert(this.Delimiter != "@");
             var valid = false;
 
             var fieldType = fi.FieldType;

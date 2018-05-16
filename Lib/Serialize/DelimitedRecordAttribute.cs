@@ -33,7 +33,7 @@ namespace Visyn.Serialize
     public sealed class DelimitedRecordAttribute : TypedRecordAttribute, ITypedRecordAttribute
     {
         /// <summary>The string used as a field separator.</summary>
-        public string Separator { get; private set; }
+        public string Delimiter { get; set; }
 
         /// <summary>Indicates that this class represents a delimited record. </summary>
         /// <param name="delimiter">The separator string used to split the fields of the record.</param>
@@ -42,7 +42,7 @@ namespace Visyn.Serialize
             if (string.IsNullOrEmpty(delimiter))
                 throw new ArgumentException("Given delimiter cannot be <> \"\"", nameof(delimiter));
             
-            Separator = delimiter;
+            Delimiter = delimiter;
         }
     }
 }
